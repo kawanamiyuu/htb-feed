@@ -1,0 +1,11 @@
+{
+    "name": "kawanamiyuu/htb-feed",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "fabpot/goutte": "^3.2"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
