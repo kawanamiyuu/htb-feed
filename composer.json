@@ -3,7 +3,8 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "fabpot/goutte": "^3.2"
+        "fabpot/goutte": "^3.2",
+        "zendframework/zend-feed": "^2.9"
     },
     "config": {
         "sort-packages": true

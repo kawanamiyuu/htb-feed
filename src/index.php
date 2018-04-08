@@ -2,12 +2,15 @@
 
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
+use Zend\Feed\Writer\Feed as ZendFeed;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 const CATEGORY = 'it';
-const MAX_PAGE = 2;
-const MIN_USERS = 10;
+const MAX_PAGE = 5;
+const MIN_USERS = 50;
+const FEED_TITLE = 'はてなブックマークの新着エントリー';
+const FEED_URL = 'http://www.example.com/atom';
 
 final class Bookmark {
     /** @var string */
@@ -60,6 +63,68 @@ final class BookmarkExtractor {
     }
 }
 
+class AtomGenerator {
+
+    private const FEED_TYPE = 'atom';
+
+    /**
+     * @var Bookmark[]
+     */
+    private $bookmarks;
+
+    /**
+     * @var string
+     */
+    private $feedUrl;
+    /**
+     * @var string
+     */
+    private $feedTitle;
+
+    /**
+     * @param Bookmark[] $bookmarks
+     * @param string     $feedTitle
+     * @param string     $feedUrl
+     */
+    public function __construct(array $bookmarks, string $feedTitle, string $feedUrl)
+    {
+        $this->bookmarks = $bookmarks;
+        $this->feedTitle = $feedTitle;
+        $this->feedUrl = $feedUrl;
+    }
+
+    public function __invoke(): string
+    {
+        $feed = new ZendFeed;
+        $feed->setTitle($this->feedTitle);
+        $feed->setLink($this->feedUrl);
+        $feed->setFeedLink($this->feedUrl, self::FEED_TYPE);
+        // feed:updated
+        $feed->setDateModified(new DateTime);
+        // feed:author
+//        $feed->addAuthor(['name'  => FEED_URL]);
+
+        foreach ($this->bookmarks as $bookmark) {
+            $entry = $feed->createEntry();
+            $entry->setTitle($bookmark->title);
+            $entry->setLink($bookmark->url);
+            // atom:updated
+            $entry->setDateModified($bookmark->date);
+            // atom:summary
+            $entry->setDescription($bookmark->title);
+            // atom:author
+//            $entry->addAuthor(['name' => $bookmark->domain]);
+            // atom:published
+//            $entry->setDateCreated($bookmark->date);
+            // atom:content
+//            $entry->setContent($bookmark->title);
+            $feed->addEntry($entry);
+        }
+
+        return $feed->export(self::FEED_TYPE);
+    }
+}
+
 /* @var Bookmark[] $bookmarks */
 $bookmarks = [];
 foreach (range(1, MAX_PAGE) as $page) {
@@ -69,4 +134,5 @@ foreach (range(1, MAX_PAGE) as $page) {
     }));
 }
 
-var_dump($bookmarks);
+$generator = new AtomGenerator($bookmarks, FEED_TITLE, FEED_URL);
+echo  $generator() . "\n";
