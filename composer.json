@@ -6,6 +6,11 @@
         "fabpot/goutte": "^3.2",
         "zendframework/zend-feed": "^2.9"
     },
+    "autoload": {
+        "psr-4": {
+            "Kawanamiyuu\\HtbFeed\\": "src"
+        }
+    },
     "config": {
         "sort-packages": true
     }
