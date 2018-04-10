@@ -3,6 +3,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
+        "php": "^7.2",
         "fabpot/goutte": "^3.2",
         "zendframework/zend-feed": "^2.9"
     },

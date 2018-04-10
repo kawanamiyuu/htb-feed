@@ -4,6 +4,7 @@ use Kawanamiyuu\HtbFeed\AtomGenerator;
 use Kawanamiyuu\HtbFeed\Bookmark;
 use Kawanamiyuu\HtbFeed\BookmarkExtractor;
 
+require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 const CATEGORY = 'it';
