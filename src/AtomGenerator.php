@@ -3,6 +3,7 @@
 namespace Kawanamiyuu\HtbFeed;
 
 use DateTime;
+use DateTimeZone;
 use Zend\Feed\Writer\Feed;
 
 class AtomGenerator {
@@ -43,7 +44,7 @@ class AtomGenerator {
         $feed->setLink($this->feedUrl);
         $feed->setFeedLink($this->feedUrl, self::FEED_TYPE);
         // feed:updated
-        $feed->setDateModified(new DateTime);
+        $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
         // feed:author
 //        $feed->addAuthor(['name'  => FEED_URL]);
 
