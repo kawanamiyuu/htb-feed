@@ -27,5 +27,5 @@ foreach (range(1, MAX_PAGE) as $page) {
 
 $generator = new AtomGenerator($bookmarks, FEED_TITLE, FEED_URL);
 
-header('Content-Type: application/atom+xml');
+header('Content-Type: application/atom+xml; charset=UTF-8');
 echo  $generator() . "\n";
