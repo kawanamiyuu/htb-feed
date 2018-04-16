@@ -21,7 +21,7 @@ class BookmarkExtractor {
     public function __construct(string $category, int $page = 1)
     {
         $url = sprintf('http://b.hatena.ne.jp/entrylist/%s?page=%d', $category, $page);
-        $this->crawler = $crawler = (new Client)->request('GET', $url);
+        $this->crawler = (new Client)->request('GET', $url);
     }
 
     /**
