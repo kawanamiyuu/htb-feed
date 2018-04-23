@@ -5,6 +5,7 @@ use Kawanamiyuu\HtbFeed\AtomGenerator;
 use Kawanamiyuu\HtbFeed\Bookmark;
 use Kawanamiyuu\HtbFeed\BookmarkExtractor;
 use Kawanamiyuu\HtbFeed\EntryListLoader;
+use Kawanamiyuu\HtbFeed\HtbClient;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -18,15 +19,9 @@ $minUsers = (int) ($_GET['users'] ?? '') ?: 50;
 
 $loader = new EntryListLoader(new Client);
 $extractor = new BookmarkExtractor;
+$client = new HtbClient($loader, $extractor);
 
-$promises = [];
-foreach (range(1, MAX_PAGE) as $page) {
-    $promises[] = $loader(CATEGORY, $page)->then(function ($html) use($extractor) {
-        return $extractor($html);
-    });
-}
-
-$bookmarks = array_merge(...\GuzzleHttp\Promise\all($promises)->wait());
+$bookmarks = $client->fetch(CATEGORY, MAX_PAGE);
 $bookmarks = array_filter($bookmarks, function (Bookmark $bookmark) use ($minUsers) {
     return $bookmark->users >= $minUsers;
 });

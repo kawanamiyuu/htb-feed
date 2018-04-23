@@ -4,7 +4,9 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^7.2",
-        "fabpot/goutte": "^3.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/css-selector": "^4.0",
+        "symfony/dom-crawler": "^4.0",
         "zendframework/zend-feed": "^2.9"
     },
     "autoload": {
