@@ -21,10 +21,15 @@ $loader = new EntryListLoader(new Client);
 $extractor = new BookmarkExtractor;
 $client = new HtbClient($loader, $extractor);
 
-$bookmarks = $client->fetch(CATEGORY, MAX_PAGE);
-$bookmarks = array_filter($bookmarks, function (Bookmark $bookmark) use ($minUsers) {
-    return $bookmark->users >= $minUsers;
-});
+$bookmarks = $client
+    ->fetch(CATEGORY, MAX_PAGE)
+    ->filter(function (Bookmark $bookmark) use ($minUsers) {
+        return $bookmark->users >= $minUsers;
+    })
+    ->sort(function (Bookmark $a, Bookmark $b) {
+        // date DESC
+        return $b->date < $a->date ? -1 : 1;
+    });
 
 $generator = new AtomGenerator($bookmarks, FEED_TITLE, FEED_URL);
 

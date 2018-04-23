@@ -11,11 +11,10 @@ class BookmarkExtractor {
     /**
      * @param string $html
      *
-     * @return Bookmark[]
+     * @return Bookmarks
      */
-    public function __invoke(string $html): array
+    public function __invoke(string $html): Bookmarks
     {
-        /* @var Bookmark[] $bookmarks */
         $bookmarks = [];
 
         (new Crawler($html))->filter('.entrylist-item .entrylist-image-entry')->each(function (Crawler $node) use (&$bookmarks) {
@@ -29,6 +28,6 @@ class BookmarkExtractor {
             $bookmarks[] = $bookmark;
         });
 
-        return $bookmarks;
+        return new Bookmarks($bookmarks);
     }
 }

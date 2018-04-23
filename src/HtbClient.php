@@ -30,9 +30,9 @@ class HtbClient
      * @param string $category
      * @param int    $pages
      *
-     * @return array
+     * @return Bookmarks
      */
-    public function fetch(string $category, int $pages): array
+    public function fetch(string $category, int $pages): Bookmarks
     {
         $loader = $this->entryListLoader;
         $extractor = $this->bookmarkExtractor;
@@ -40,13 +40,13 @@ class HtbClient
         $promises = [];
         foreach (range(1, $pages) as $page) {
             $promises[] = $loader($category, $page)->then(function ($html) use($extractor) {
-                return $extractor($html);
+                return $extractor($html)->toArray();
             });
         }
 
         /* @var Bookmark[][] $results */
         $results = all($promises)->wait();
 
-        return array_merge(...$results);
+        return new Bookmarks(array_merge(...$results));
     }
 }
