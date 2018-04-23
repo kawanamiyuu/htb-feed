@@ -1,11 +1,8 @@
 <?php
 
-use GuzzleHttp\Client;
 use Kawanamiyuu\HtbFeed\AtomGenerator;
 use Kawanamiyuu\HtbFeed\Bookmark;
-use Kawanamiyuu\HtbFeed\BookmarkExtractor;
-use Kawanamiyuu\HtbFeed\EntryListLoader;
-use Kawanamiyuu\HtbFeed\HtbClient;
+use Kawanamiyuu\HtbFeed\HtbClientFactory;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -17,11 +14,7 @@ const FEED_URL = 'http://www.example.com/atom';
 
 $minUsers = (int) ($_GET['users'] ?? '') ?: 50;
 
-$loader = new EntryListLoader(new Client);
-$extractor = new BookmarkExtractor;
-$client = new HtbClient($loader, $extractor);
-
-$bookmarks = $client
+$bookmarks = HtbClientFactory::create()
     ->fetch(CATEGORY, MAX_PAGE)
     ->filter(function (Bookmark $bookmark) use ($minUsers) {
         return $bookmark->users >= $minUsers;
