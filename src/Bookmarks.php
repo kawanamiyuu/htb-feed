@@ -2,7 +2,7 @@
 
 namespace Kawanamiyuu\HtbFeed;
 
-class Bookmarks implements \IteratorAggregate
+final class Bookmarks implements \IteratorAggregate
 {
     /**
      * @var Bookmark[]
