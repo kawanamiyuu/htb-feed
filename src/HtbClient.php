@@ -27,12 +27,12 @@ class HtbClient
     }
 
     /**
-     * @param string $category
-     * @param int    $pages
+     * @param Category $category
+     * @param int      $pages
      *
      * @return Bookmarks
      */
-    public function fetch(string $category, int $pages): Bookmarks
+    public function fetch(Category $category, int $pages): Bookmarks
     {
         $loader = $this->entryListLoader;
         $extractor = $this->bookmarkExtractor;
