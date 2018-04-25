@@ -4,35 +4,20 @@ namespace Kawanamiyuu\HtbFeed;
 
 use DateTime;
 use DateTimeZone;
-use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;
 
-class BookmarkExtractor {
-
+class BookmarkExtractor
+{
     /**
-     * @var Crawler
+     * @param string $html
+     *
+     * @return Bookmarks
      */
-    private $crawler;
-
-    /**
-     * @param string $category
-     * @param int    $page
-     */
-    public function __construct(string $category, int $page = 1)
+    public function __invoke(string $html): Bookmarks
     {
-        $url = sprintf('http://b.hatena.ne.jp/entrylist/%s?page=%d', $category, $page);
-        $this->crawler = (new Client)->request('GET', $url);
-    }
-
-    /**
-     * @return Bookmark[]
-     */
-    public function __invoke(): array
-    {
-        /* @var Bookmark[] $bookmarks */
         $bookmarks = [];
 
-        $this->crawler->filter('.entrylist-item .entrylist-image-entry')->each(function (Crawler $node) use (&$bookmarks) {
+        (new Crawler($html))->filter('.entrylist-item .entrylist-image-entry')->each(function (Crawler $node) use (&$bookmarks) {
             $bookmark = new Bookmark;
             $bookmark->category = $node->filter('.entrylist-contents-category a')->text();
             $bookmark->users = (int) $node->filter('.entrylist-contents-users span')->text();
@@ -43,6 +28,6 @@ class BookmarkExtractor {
             $bookmarks[] = $bookmark;
         });
 
-        return $bookmarks;
+        return new Bookmarks($bookmarks);
     }
 }

@@ -6,12 +6,12 @@ use DateTime;
 use DateTimeZone;
 use Zend\Feed\Writer\Feed;
 
-class AtomGenerator {
-
+class AtomGenerator
+{
     private const FEED_TYPE = 'atom';
 
     /**
-     * @var Bookmark[]
+     * @var Bookmarks
      */
     private $bookmarks;
 
@@ -26,11 +26,11 @@ class AtomGenerator {
     private $feedTitle;
 
     /**
-     * @param Bookmark[] $bookmarks
-     * @param string     $feedTitle
-     * @param string     $feedUrl
+     * @param Bookmarks $bookmarks
+     * @param string    $feedTitle
+     * @param string    $feedUrl
      */
-    public function __construct(array $bookmarks, string $feedTitle, string $feedUrl)
+    public function __construct(Bookmarks $bookmarks, string $feedTitle, string $feedUrl)
     {
         $this->bookmarks = $bookmarks;
         $this->feedTitle = $feedTitle;

@@ -2,7 +2,8 @@
 
 namespace Kawanamiyuu\HtbFeed;
 
-final class Bookmark {
+final class Bookmark
+{
     /** @var string */
     public $category;
 
