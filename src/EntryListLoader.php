@@ -22,14 +22,14 @@ class EntryListLoader
     }
 
     /**
-     * @param string $category
-     * @param int    $page
+     * @param Category $category
+     * @param int      $page
      *
      * @return PromiseInterface
      */
-    public function __invoke(string $category, int $page): PromiseInterface
+    public function __invoke(Category $category, int $page): PromiseInterface
     {
-        $url = sprintf('http://b.hatena.ne.jp/entrylist/%s?page=%d', $category, $page);
+        $url = sprintf('http://b.hatena.ne.jp/entrylist/%s?page=%d', $category->value(), $page);
 
         return $this->client->requestAsync('GET', $url)->then(function (ResponseInterface $response) {
             return $response->getBody()->getContents();
