@@ -6,8 +6,8 @@ use DateTime;
 use DateTimeZone;
 use Zend\Feed\Writer\Feed;
 
-class AtomGenerator {
-
+class AtomGenerator
+{
     private const FEED_TYPE = 'atom';
 
     /**

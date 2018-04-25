@@ -6,8 +6,8 @@ use DateTime;
 use DateTimeZone;
 use Symfony\Component\DomCrawler\Crawler;
 
-class BookmarkExtractor {
-
+class BookmarkExtractor
+{
     /**
      * @param string $html
      *
