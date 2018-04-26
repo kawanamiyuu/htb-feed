@@ -12,8 +12,13 @@ const MAX_PAGE = 10;
 const FEED_TITLE = 'はてなブックマークの新着エントリー';
 const FEED_URL = 'http://www.example.com/atom';
 
-$category = Category::valueOf($_GET['category'] ?? '');
-$minUsers = (int) ($_GET['users'] ?? '') ?: 50;
+if (isset($_GET['category'])) {
+    $category = Category::valueOf($_GET['category']);
+} else {
+    $category = Category::ALL();
+}
+
+$minUsers = (int) ($_GET['users'] ?? '100');
 
 $bookmarks = HtbClientFactory::create()
     ->fetch($category, MAX_PAGE)
