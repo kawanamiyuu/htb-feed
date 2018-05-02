@@ -55,7 +55,8 @@ class AtomGenerator
             // atom:updated
             $entry->setDateModified($bookmark->date);
             // atom:summary
-            $entry->setDescription($bookmark->title);
+            $entry->setDescription(sprintf('ブクマ数: %s、カテゴリー: %s、発行元: %s',
+                $bookmark->users, $bookmark->category, $bookmark->domain));
             // atom:author
 //            $entry->addAuthor(['name' => $bookmark->domain]);
             // atom:published
