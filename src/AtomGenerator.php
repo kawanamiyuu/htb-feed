@@ -37,11 +37,15 @@ class AtomGenerator
         $this->feedUrl = $feedUrl;
     }
 
+    /**
+     * @return string
+     */
     public function __invoke(): string
     {
         $feed = new Feed;
         $feed->setTitle($this->feedTitle);
-        $feed->setLink($this->feedUrl);
+        // FIXME: html page url
+        $feed->setLink('http://example.com');
         $feed->setFeedLink($this->feedUrl, self::FEED_TYPE);
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
@@ -66,6 +70,14 @@ class AtomGenerator
             $feed->addEntry($entry);
         }
 
-        return $feed->export(self::FEED_TYPE);
+        $xml = $feed->export(self::FEED_TYPE);
+
+        // NOTE: DOMElement::setAttribute の仕様で、属性値 (リンク URL) 文字列中の "&" が
+        //       自動的に HTML エスケープ ("&" -> "&amp;") されてしまうので "&" に戻す
+        $xml = preg_replace_callback('/href="[^"]+"/', function ($matches) {
+            return str_replace('&amp;', '&', $matches[0]);
+        }, $xml);
+
+        return $xml;
     }
 }
