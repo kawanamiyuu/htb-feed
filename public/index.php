@@ -4,21 +4,25 @@ use Kawanamiyuu\HtbFeed\AtomGenerator;
 use Kawanamiyuu\HtbFeed\Bookmark;
 use Kawanamiyuu\HtbFeed\Category;
 use Kawanamiyuu\HtbFeed\HtbClientFactory;
+use Zend\Diactoros\ServerRequestFactory;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 const MAX_PAGE = 10;
 const FEED_TITLE = 'はてなブックマークの新着エントリー';
-const FEED_URL = 'http://www.example.com/atom';
 
-if (isset($_GET['category'])) {
-    $category = Category::valueOf($_GET['category']);
+$request = ServerRequestFactory::fromGlobals();
+
+$feedUrl = (string) $request->getUri();
+
+if (isset($request->getQueryParams()['category'])) {
+    $category = Category::valueOf($request->getQueryParams()['category']);
 } else {
     $category = Category::ALL();
 }
 
-$minUsers = (int) ($_GET['users'] ?? '100');
+$minUsers = (int) ($request->getQueryParams()['users'] ?? '100');
 
 $bookmarks = HtbClientFactory::create()
     ->fetch($category, MAX_PAGE)
@@ -30,7 +34,7 @@ $bookmarks = HtbClientFactory::create()
         return $b->date < $a->date ? -1 : 1;
     });
 
-$generator = new AtomGenerator($bookmarks, FEED_TITLE, FEED_URL);
+$generator = new AtomGenerator($bookmarks, FEED_TITLE, $feedUrl);
 
 header('Content-Type: application/atom+xml; charset=UTF-8');
 echo  $generator() . "\n";
