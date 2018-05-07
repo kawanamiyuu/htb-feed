@@ -16,13 +16,13 @@ $request = ServerRequestFactory::fromGlobals();
 
 $feedUrl = (string) $request->getUri();
 
-if (isset($_GET['category'])) {
-    $category = Category::valueOf($_GET['category']);
+if (isset($request->getQueryParams()['category'])) {
+    $category = Category::valueOf($request->getQueryParams()['category']);
 } else {
     $category = Category::ALL();
 }
 
-$minUsers = (int) ($_GET['users'] ?? '100');
+$minUsers = (int) ($request->getQueryParams()['users'] ?? '100');
 
 $bookmarks = HtbClientFactory::create()
     ->fetch($category, MAX_PAGE)
