@@ -1,9 +1,10 @@
 <?php
 
-namespace Kawanamiyuu\HtbFeed;
+namespace Kawanamiyuu\HtbFeed\Feed;
 
 use DateTime;
 use DateTimeZone;
+use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 use Zend\Feed\Writer\Feed;
 
 class AtomGenerator

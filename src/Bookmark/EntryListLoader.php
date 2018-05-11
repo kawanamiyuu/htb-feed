@@ -1,6 +1,6 @@
 <?php
 
-namespace Kawanamiyuu\HtbFeed;
+namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\PromiseInterface;

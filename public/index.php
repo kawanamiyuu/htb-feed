@@ -1,9 +1,9 @@
 <?php
 
-use Kawanamiyuu\HtbFeed\AtomGenerator;
-use Kawanamiyuu\HtbFeed\Bookmark;
-use Kawanamiyuu\HtbFeed\Category;
-use Kawanamiyuu\HtbFeed\HtbClientFactory;
+use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
+use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
+use Kawanamiyuu\HtbFeed\Bookmark\Category;
+use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
 use Zend\Diactoros\ServerRequestFactory;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';

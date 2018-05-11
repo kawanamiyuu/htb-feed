@@ -1,6 +1,6 @@
 <?php
 
-namespace Kawanamiyuu\HtbFeed;
+namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 /**
  * @method static Category ALL()
