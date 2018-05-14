@@ -8,13 +8,16 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response;
 
-class ResponseFactoryMiddleware implements MiddlewareInterface
+class RouterMiddleware implements MiddlewareInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return new Response;
+        $route = Route::matches($request->getUri());
+        $builder = $route->builder();
+
+        return (new $builder)($request, new Response);
     }
 }

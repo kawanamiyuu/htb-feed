@@ -1,8 +1,7 @@
 <?php
 
-use Kawanamiyuu\HtbFeed\Http\ResponseBuilderMiddleware;
-use Kawanamiyuu\HtbFeed\Http\ResponseEmitterMiddleware;
-use Kawanamiyuu\HtbFeed\Http\ResponseFactoryMiddleware;
+use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
+use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Relay\Relay;
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -12,9 +11,8 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 $request = ServerRequestFactory::fromGlobals();
 
 $relay = new Relay([
-    new ResponseEmitterMiddleware,
-    new ResponseBuilderMiddleware,
-    new ResponseFactoryMiddleware
+    new ResponderMiddleware,
+    new RouterMiddleware
 ]);
 
 $relay->handle($request);

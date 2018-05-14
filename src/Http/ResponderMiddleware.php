@@ -6,8 +6,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\Response\SapiStreamEmitter;
 
-class ResponseBuilderMiddleware implements MiddlewareInterface
+class ResponderMiddleware implements MiddlewareInterface
 {
     /**
      * {@inheritdoc}
@@ -16,10 +17,8 @@ class ResponseBuilderMiddleware implements MiddlewareInterface
     {
         $response = $handler->handle($request);
 
-        $route = Route::matches($request->getUri());
+        (new SapiStreamEmitter)->emit($response);
 
-        $builder = $route->builder();
-
-        return (new $builder)($request, $response);
+        return $response;
     }
 }
