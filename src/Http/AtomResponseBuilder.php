@@ -8,7 +8,6 @@ use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
 use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\UriInterface;
 
 class AtomResponseBuilder implements ResponseBuilderInterface
 {
