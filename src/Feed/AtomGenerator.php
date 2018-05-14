@@ -12,48 +12,25 @@ class AtomGenerator
     private const FEED_TYPE = 'atom';
 
     /**
-     * @var Bookmarks
-     */
-    private $bookmarks;
-
-    /**
-     * @var string
-     */
-    private $feedUrl;
-
-    /**
-     * @var string
-     */
-    private $feedTitle;
-
-    /**
      * @param Bookmarks $bookmarks
      * @param string    $feedTitle
      * @param string    $feedUrl
-     */
-    public function __construct(Bookmarks $bookmarks, string $feedTitle, string $feedUrl)
-    {
-        $this->bookmarks = $bookmarks;
-        $this->feedTitle = $feedTitle;
-        $this->feedUrl = $feedUrl;
-    }
-
-    /**
+     * @param string    $htmlUrl
+     *
      * @return string
      */
-    public function __invoke(): string
+    public function __invoke(Bookmarks $bookmarks, string $feedTitle, string $feedUrl, string $htmlUrl): string
     {
         $feed = new Feed;
-        $feed->setTitle($this->feedTitle);
-        // FIXME: html page url
-        $feed->setLink('http://example.com');
-        $feed->setFeedLink($this->feedUrl, self::FEED_TYPE);
+        $feed->setTitle($feedTitle);
+        $feed->setFeedLink($feedUrl, self::FEED_TYPE);
+        $feed->setLink($htmlUrl);
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
         // feed:author
 //        $feed->addAuthor(['name'  => FEED_URL]);
 
-        foreach ($this->bookmarks as $bookmark) {
+        foreach ($bookmarks as $bookmark) {
             $entry = $feed->createEntry();
             $entry->setTitle($bookmark->title);
             $entry->setLink($bookmark->url);

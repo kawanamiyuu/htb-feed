@@ -3,20 +3,20 @@
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
+use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
-use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
-class AtomResponseBuilder implements ResponseBuilderInterface
+class HtmlResponseBuilder implements ResponseBuilderInterface
 {
     const TITLE = 'はてなブックマークの新着エントリー';
 
     const MAX_PAGE = 10;
 
-    const CONTENT_TYPE = 'application/atom+xml; charset=UTF-8';
+    const CONTENT_TYPE = 'text/html; charset=UTF-8';
 
     /**
      * {@inheritdoc}
@@ -41,13 +41,12 @@ class AtomResponseBuilder implements ResponseBuilderInterface
                 return $b->date < $a->date ? -1 : 1;
             });
 
-        $feedUrl = (string) $request->getUri();
-        $htmlUrl = $this->getHtmlUrl($request->getUri());
+        $feedUrl = $this->getFeedUrl($request->getUri());
 
-        $feed = (new AtomGenerator)($bookmarks, self::TITLE, $feedUrl, $htmlUrl);
+        $html = $this->buildHtml($feedUrl, self::TITLE, $bookmarks);
 
         $response = $response->withHeader('Content-Type', self::CONTENT_TYPE);
-        $response->getBody()->write($feed);
+        $response->getBody()->write($html);
 
         return $response;
     }
@@ -57,12 +56,26 @@ class AtomResponseBuilder implements ResponseBuilderInterface
      *
      * @return string
      */
-    private function getHtmlUrl(UriInterface $uri): string
+    private function getFeedUrl(UriInterface $uri): string
     {
-        $url = sprintf('%s://%s/?%s', $uri->getScheme(), $uri->getAuthority(), $uri->getQuery());
+        $url = sprintf('%s://%s/atom?%s', $uri->getScheme(), $uri->getAuthority(), $uri->getQuery());
         // trim trailing '?' if query does not exist
         $url = rtrim($url, '?');
 
         return $url;
+    }
+
+    /**
+     * @param string    $feedUrl
+     * @param string    $title
+     * @param Bookmarks $bookmarks
+     *
+     * @return string
+     */
+    private function buildHtml(string $feedUrl, string $title, Bookmarks $bookmarks): string
+    {
+        ob_start();
+        require dirname(__DIR__, 2) . '/src-files/html.php';
+        return ob_get_clean();
     }
 }
