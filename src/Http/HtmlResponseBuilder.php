@@ -45,7 +45,9 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
 
         $html = $this->buildHtml($feedUrl, self::TITLE, $bookmarks);
 
-        $response = $response->withHeader('Content-Type', self::CONTENT_TYPE);
+        $response = $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', self::CONTENT_TYPE);
         $response->getBody()->write($html);
 
         return $response;

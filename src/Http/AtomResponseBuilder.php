@@ -46,7 +46,9 @@ class AtomResponseBuilder implements ResponseBuilderInterface
 
         $feed = (new AtomGenerator)($bookmarks, self::TITLE, $feedUrl, $htmlUrl);
 
-        $response = $response->withHeader('Content-Type', self::CONTENT_TYPE);
+        $response = $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', self::CONTENT_TYPE);
         $response->getBody()->write($feed);
 
         return $response;
