@@ -8,22 +8,20 @@ use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
 use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-class ResponseBuilder implements MiddlewareInterface
+class AtomResponseBuilder implements ResponseBuilderInterface
 {
+    const FEED_TITLE = 'はてなブックマークの新着エントリー';
+
     const MAX_PAGE = 10;
 
-    const FEED_TITLE = 'はてなブックマークの新着エントリー';
+    const CONTENT_TYPE = 'application/atom+xml; charset=UTF-8';
 
     /**
      * {@inheritdoc}
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $response = $handler->handle($request);
-
         $feedUrl = (string) $request->getUri();
 
         if (isset($request->getQueryParams()['category'])) {
@@ -46,9 +44,9 @@ class ResponseBuilder implements MiddlewareInterface
 
         $generator = new AtomGenerator($bookmarks, self::FEED_TITLE, $feedUrl);
 
+        $response = $response->withHeader('Content-Type', self::CONTENT_TYPE);
         $response->getBody()->write($generator());
 
-        return $response
-            ->withHeader('Content-Type', 'application/atom+xml; charset=UTF-8');
+        return $response;
     }
 }

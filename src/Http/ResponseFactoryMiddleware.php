@@ -8,7 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response;
 
-class ResponseFactory implements MiddlewareInterface
+class ResponseFactoryMiddleware implements MiddlewareInterface
 {
     /**
      * {@inheritdoc}
