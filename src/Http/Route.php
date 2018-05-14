@@ -23,33 +23,34 @@ class Route
     /**
      * @var string
      */
-    private $builder;
+    private $responseBuilder;
 
     /**
      * @param string $path
-     * @param string $builder
+     * @param string $responseBuilder
      */
-    private function __construct(string $path, string $builder)
+    private function __construct(string $path, string $responseBuilder)
     {
         $this->path = $path;
-        $this->builder = $builder;
+        $this->responseBuilder = $responseBuilder;
     }
 
     /**
      * @param ServerRequestInterface $request
      *
-     * @return Route
+     * @return ResponseBuilderInterface
      */
-    public static function matches(ServerRequestInterface $request): self
+    public static function matches(ServerRequestInterface $request): ResponseBuilderInterface
     {
         $path = rtrim($request->getUri()->getPath(), '/');
         $path = $path === '' ? '/' : $path;
 
         if (! in_array($path, array_keys(self::routes))) {
-            return new self($path, NotFoundResponseBuilder::class);
+            return new NotFoundResponseBuilder;
         }
 
-        return new self($path, self::routes[$path]);
+        $responseBuilder = self::routes[$path];
+        return new $responseBuilder;
     }
 
     /**
@@ -65,6 +66,7 @@ class Route
 
         $name = strtolower($name);
         $path = '/' . ($name === 'index' ? '' : $name);
+
         if (! in_array($path, array_keys(self::routes))) {
             throw new \LogicException("unknown route '{$path}'");
         }
@@ -83,13 +85,5 @@ class Route
         $url = sprintf('%s://%s%s?%s', $uri->getScheme(), $uri->getAuthority(), $this->path, $uri->getQuery());
         // trim trailing '?' if query does not exist
         return rtrim($url, '?');
-    }
-
-    /**
-     * @return string
-     */
-    public function builder(): string
-    {
-        return $this->builder;
     }
 }
