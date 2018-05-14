@@ -15,7 +15,7 @@ class RouterMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $route = Route::matches($request->getUri());
+        $route = Route::matches($request);
         $builder = $route->builder();
 
         return (new $builder)($request, new Response);

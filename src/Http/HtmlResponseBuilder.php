@@ -8,7 +8,6 @@ use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\UriInterface;
 
 class HtmlResponseBuilder implements ResponseBuilderInterface
 {
@@ -41,7 +40,7 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
                 return $b->date < $a->date ? -1 : 1;
             });
 
-        $feedUrl = $this->getFeedUrl($request->getUri());
+        $feedUrl = Route::ATOM()->getUrl($request);
 
         $html = $this->buildHtml($feedUrl, self::TITLE, $bookmarks);
 
@@ -51,20 +50,6 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
         $response->getBody()->write($html);
 
         return $response;
-    }
-
-    /**
-     * @param UriInterface $uri
-     *
-     * @return string
-     */
-    private function getFeedUrl(UriInterface $uri): string
-    {
-        $url = sprintf('%s://%s/atom?%s', $uri->getScheme(), $uri->getAuthority(), $uri->getQuery());
-        // trim trailing '?' if query does not exist
-        $url = rtrim($url, '?');
-
-        return $url;
     }
 
     /**

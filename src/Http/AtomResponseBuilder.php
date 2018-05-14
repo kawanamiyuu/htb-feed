@@ -42,7 +42,7 @@ class AtomResponseBuilder implements ResponseBuilderInterface
             });
 
         $feedUrl = (string) $request->getUri();
-        $htmlUrl = $this->getHtmlUrl($request->getUri());
+        $htmlUrl = Route::INDEX()->getUrl($request);
 
         $feed = (new AtomGenerator)($bookmarks, self::TITLE, $feedUrl, $htmlUrl);
 
@@ -52,19 +52,5 @@ class AtomResponseBuilder implements ResponseBuilderInterface
         $response->getBody()->write($feed);
 
         return $response;
-    }
-
-    /**
-     * @param UriInterface $uri
-     *
-     * @return string
-     */
-    private function getHtmlUrl(UriInterface $uri): string
-    {
-        $url = sprintf('%s://%s/?%s', $uri->getScheme(), $uri->getAuthority(), $uri->getQuery());
-        // trim trailing '?' if query does not exist
-        $url = rtrim($url, '?');
-
-        return $url;
     }
 }
