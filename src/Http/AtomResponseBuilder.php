@@ -3,7 +3,6 @@
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
-use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
 use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
 use Psr\Http\Message\ResponseInterface;
