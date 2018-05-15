@@ -24,6 +24,8 @@ class AppModule extends AbstractModule
      */
     protected function configure()
     {
+        $this->bind(Application::class);
+
         $this->bind(ResponderMiddleware::class);
         $this->bind(RouterMiddleware::class);
 
