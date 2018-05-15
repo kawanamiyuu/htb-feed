@@ -20,18 +20,13 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        if (isset($request->getQueryParams()['category'])) {
-            $category = Category::valueOf($request->getQueryParams()['category']);
-        } else {
-            $category = Category::ALL();
-        }
-
-        $minUsers = (int) ($request->getQueryParams()['users'] ?? '100');
+        $query = (new QueryValidator)($request);
+        /* @var QueryValidator $query */
 
         $bookmarks = HtbClientFactory::create()
-            ->fetch($category)
-            ->filter(function (Bookmark $bookmark) use ($minUsers) {
-                return $bookmark->users >= $minUsers;
+            ->fetch($query->category)
+            ->filter(function (Bookmark $bookmark) use ($query) {
+                return $bookmark->users >= $query->users;
             });
 
         $feedUrl = Route::ATOM()->getUrl($request);
