@@ -20,13 +20,13 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $query = (new QueryValidator)($request);
-        /* @var QueryValidator $query */
+        $query = (new QueryExtractor)($request);
+        /* @var QueryExtractor $query */
 
         $bookmarks = HtbClientFactory::create()
             ->fetch($query->category)
             ->filter(function (Bookmark $bookmark) use ($query) {
-                return $bookmark->users >= $query->users;
+                return $bookmark->users->value() >= $query->users->value();
             });
 
         $feedUrl = Route::ATOM()->getUrl($request);

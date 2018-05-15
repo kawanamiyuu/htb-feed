@@ -2,11 +2,11 @@
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
-
 use Kawanamiyuu\HtbFeed\Bookmark\Category;
+use Kawanamiyuu\HtbFeed\Bookmark\Users;
 use Psr\Http\Message\ServerRequestInterface;
 
-class QueryValidator
+class QueryExtractor
 {
     /**
      * @var Category
@@ -14,16 +14,16 @@ class QueryValidator
     public $category;
 
     /**
-     * @var int
+     * @var Users
      */
     public $users;
 
     /**
      * @param ServerRequestInterface $request
      *
-     * @return QueryValidator
+     * @return QueryExtractor
      */
-    public function __invoke(ServerRequestInterface $request): QueryValidator
+    public function __invoke(ServerRequestInterface $request): QueryExtractor
     {
         $category = $request->getQueryParams()['category'];
         if (isset($category)) {
@@ -35,13 +35,10 @@ class QueryValidator
 
         $users = $request->getQueryParams()['users'];
         if (isset($users)) {
-            if (! ctype_digit($users)) {
-                throw new \LogicException('"users" must be positive integer.');
-            }
-            $this->users = $users;
+            $this->users = Users::valueOf($users);
         } else {
             // default
-            $this->users = 100;
+            $this->users = Users::valueOf(100);
         }
 
         return $this;

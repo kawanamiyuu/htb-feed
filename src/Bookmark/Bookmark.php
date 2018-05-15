@@ -7,7 +7,7 @@ final class Bookmark
     /** @var string */
     public $category;
 
-    /** @var int */
+    /** @var Users */
     public $users;
 
     /** @var string */
