@@ -13,8 +13,6 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
 {
     const TITLE = 'はてなブックマークの新着エントリー';
 
-    const MAX_PAGE = 10;
-
     const CONTENT_TYPE = 'text/html; charset=UTF-8';
 
     /**
@@ -31,13 +29,9 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
         $minUsers = (int) ($request->getQueryParams()['users'] ?? '100');
 
         $bookmarks = HtbClientFactory::create()
-            ->fetch($category, self::MAX_PAGE)
+            ->fetch($category)
             ->filter(function (Bookmark $bookmark) use ($minUsers) {
                 return $bookmark->users >= $minUsers;
-            })
-            ->sort(function (Bookmark $a, Bookmark $b) {
-                // date DESC
-                return $b->date < $a->date ? -1 : 1;
             });
 
         $feedUrl = Route::ATOM()->getUrl($request);
