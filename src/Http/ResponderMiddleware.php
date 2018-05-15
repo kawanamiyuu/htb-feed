@@ -6,10 +6,23 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\SapiStreamEmitter;
+use Zend\Diactoros\Response\EmitterInterface;
 
 class ResponderMiddleware implements MiddlewareInterface
 {
+    /**
+     * @var EmitterInterface
+     */
+    private $emitter;
+
+    /**
+     * @param EmitterInterface $emitter
+     */
+    public function __construct(EmitterInterface $emitter)
+    {
+        $this->emitter = $emitter;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -17,7 +30,7 @@ class ResponderMiddleware implements MiddlewareInterface
     {
         $response = $handler->handle($request);
 
-        (new SapiStreamEmitter)->emit($response);
+        $this->emitter->emit($response);
 
         return $response;
     }

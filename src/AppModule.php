@@ -9,6 +9,8 @@ use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
+use Zend\Diactoros\Response\EmitterInterface;
+use Zend\Diactoros\Response\SapiStreamEmitter;
 
 class AppModule extends AbstractModule
 {
@@ -21,6 +23,9 @@ class AppModule extends AbstractModule
         $this->bind(RouterMiddleware::class);
 
         $this->bind(ResponseBuilderFactory::class);
+
+        $this->bind(EmitterInterface::class)
+            ->to(SapiStreamEmitter::class);
 
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)
