@@ -3,16 +3,16 @@
 use Kawanamiyuu\HtbFeed\AppModule;
 use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\Injector;
 use Relay\Relay;
-use Zend\Diactoros\ServerRequestFactory;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$request = ServerRequestFactory::fromGlobals();
-
 $injector = new Injector(new AppModule);
+
+$request = $injector->getInstance(ServerRequestInterface::class);
 
 $relay = new Relay([
     ResponderMiddleware::class,
