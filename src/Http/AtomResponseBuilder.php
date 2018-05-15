@@ -3,7 +3,7 @@
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
-use Kawanamiyuu\HtbFeed\Bookmark\HtbClientFactory;
+use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,6 +15,19 @@ class AtomResponseBuilder implements ResponseBuilderInterface
     const CONTENT_TYPE = 'application/atom+xml; charset=UTF-8';
 
     /**
+     * @var HtbClient
+     */
+    private $client;
+
+    /**
+     * @param HtbClient $client
+     */
+    public function __construct(HtbClient $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -22,7 +35,7 @@ class AtomResponseBuilder implements ResponseBuilderInterface
         $query = (new QueryExtractor)($request);
         /* @var QueryExtractor $query */
 
-        $bookmarks = HtbClientFactory::create()
+        $bookmarks = $this->client
             ->fetch($query->category)
             ->filter(function (Bookmark $bookmark) use ($query) {
                 return $bookmark->users->value() >= $query->users->value();

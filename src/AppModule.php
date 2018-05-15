@@ -2,6 +2,10 @@
 
 namespace Kawanamiyuu\HtbFeed;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
+use Kawanamiyuu\HtbFeed\Bookmark\EntryListLoader;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponseBuilderFactory;
 use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
@@ -30,6 +34,11 @@ class AppModule extends AbstractModule
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)
             ->in(Scope::SINGLETON);
+
+        // dependencies for HtbClient
+        $this->bind(ClientInterface::class)->to(Client::class);
+        $this->bind(EntryListLoader::class);
+        $this->bind(BookmarkExtractor::class);
 
     }
 }
