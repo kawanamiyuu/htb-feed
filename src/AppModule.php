@@ -8,6 +8,7 @@ use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
 use Kawanamiyuu\HtbFeed\Bookmark\EntryListLoader;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponseBuilderFactory;
+use Kawanamiyuu\HtbFeed\Http\ResponsePrototypeFactory;
 use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,10 +27,10 @@ class AppModule extends AbstractModule
         $this->bind(ResponderMiddleware::class);
         $this->bind(RouterMiddleware::class);
 
-        $this->bind(ResponseBuilderFactory::class);
-
-        $this->bind(EmitterInterface::class)
-            ->to(SapiStreamEmitter::class);
+        // dependencies to build and emit response
+        $this->bind(ResponsePrototypeFactory::class)->in(Scope::SINGLETON);
+        $this->bind(ResponseBuilderFactory::class)->in(Scope::SINGLETON);
+        $this->bind(EmitterInterface::class)->to(SapiStreamEmitter::class);
 
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)

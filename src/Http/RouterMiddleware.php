@@ -6,21 +6,27 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response;
 
 class RouterMiddleware implements MiddlewareInterface
 {
     /**
-     * @var ResponseBuilderFactory
+     * @var ResponsePrototypeFactory
      */
-    private $factory;
+    private $prototypeFactory;
 
     /**
-     * @param ResponseBuilderFactory $factory
+     * @var ResponseBuilderFactory
      */
-    public function __construct(ResponseBuilderFactory $factory)
+    private $builderFactory;
+
+    /**
+     * @param ResponsePrototypeFactory $prototypeFactory
+     * @param ResponseBuilderFactory   $builderFactory
+     */
+    public function __construct(ResponsePrototypeFactory $prototypeFactory, ResponseBuilderFactory $builderFactory)
     {
-        $this->factory = $factory;
+        $this->prototypeFactory = $prototypeFactory;
+        $this->builderFactory = $builderFactory;
     }
 
     /**
@@ -28,9 +34,11 @@ class RouterMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $responseBuilderClass = Route::matches($request);
-        $responseBuilder = $this->factory->newInstance($responseBuilderClass);
+        $prototype = $this->prototypeFactory->newInstance();
 
-        return $responseBuilder($request, new Response);
+        $builderClass = Route::matches($request);
+        $builder = $this->builderFactory->newInstance($builderClass);
+
+        return $builder($request, $prototype);
     }
 }
