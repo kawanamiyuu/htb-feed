@@ -1,11 +1,13 @@
 <?php
 
-namespace Kawanamiyuu\HtbFeed;
+namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use function GuzzleHttp\Promise\all;
 
 class HtbClient
 {
+    private const MAX_PAGE = 10;
+
     /**
      * @var EntryListLoader
      */
@@ -28,17 +30,16 @@ class HtbClient
 
     /**
      * @param Category $category
-     * @param int      $pages
      *
      * @return Bookmarks
      */
-    public function fetch(Category $category, int $pages): Bookmarks
+    public function fetch(Category $category): Bookmarks
     {
         $loader = $this->entryListLoader;
         $extractor = $this->bookmarkExtractor;
 
         $promises = [];
-        foreach (range(1, $pages) as $page) {
+        foreach (range(1, self::MAX_PAGE) as $page) {
             $promises[] = $loader($category, $page)->then(function ($html) use($extractor) {
                 return $extractor($html)->toArray();
             });
@@ -47,6 +48,11 @@ class HtbClient
         /* @var Bookmark[][] $results */
         $results = all($promises)->wait();
 
-        return new Bookmarks(array_merge(...$results));
+        $bookmarks = new Bookmarks(array_merge(...$results));
+
+        return $bookmarks->sort(function (Bookmark $a, Bookmark $b) {
+            // date DESC
+            return $b->date < $a->date ? -1 : 1;
+        });
     }
 }

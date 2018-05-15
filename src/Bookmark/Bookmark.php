@@ -1,13 +1,13 @@
 <?php
 
-namespace Kawanamiyuu\HtbFeed;
+namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 final class Bookmark
 {
-    /** @var string */
+    /** @var Category */
     public $category;
 
-    /** @var int */
+    /** @var Users */
     public $users;
 
     /** @var string */
