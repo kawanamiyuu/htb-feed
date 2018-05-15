@@ -4,7 +4,7 @@ namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 final class Bookmark
 {
-    /** @var string */
+    /** @var Category */
     public $category;
 
     /** @var Users */

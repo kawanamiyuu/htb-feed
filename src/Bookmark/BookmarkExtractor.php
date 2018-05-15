@@ -19,7 +19,7 @@ class BookmarkExtractor
 
         (new Crawler($html))->filter('.entrylist-item .entrylist-image-entry')->each(function (Crawler $node) use (&$bookmarks) {
             $bookmark = new Bookmark;
-            $bookmark->category = $node->filter('.entrylist-contents-category a')->text();
+            $bookmark->category = Category::labelOf($node->filter('.entrylist-contents-category a')->text());
             $bookmark->users = Users::valueOf($node->filter('.entrylist-contents-users span')->text());
             $bookmark->title = $node->filter('.entrylist-contents-title a')->attr('title');
             $bookmark->url = $node->filter('.entrylist-contents-title a')->attr('href');

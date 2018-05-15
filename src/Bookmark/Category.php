@@ -17,29 +17,36 @@ namespace Kawanamiyuu\HtbFeed\Bookmark;
 final class Category
 {
     private const CATEGORIES = [
-        'all',
-        'general',
-        'social',
-        'economics',
-        'life',
-        'knowledge',
-        'it',
-        'fun',
-        'entertainment',
-        'game'
+        'all' => '総合',
+        'general' => '一般',
+        'social' => '世の中',
+        'economics' => '政治と経済',
+        'life' => '暮らし',
+        'knowledge' => '学び',
+        'it' => 'テクノロジー',
+        'fun' => 'おもしろ',
+        'entertainment' => 'エンタメ',
+        'game' => 'アニメとゲーム'
     ];
 
     /**
      * @var string
      */
-    private $category;
+    private $value;
 
     /**
-     * @param string $category
+     * @var string
      */
-    private function __construct(string $category)
+    private $label;
+
+    /**
+     * @param string $value
+     * @param string $label
+     */
+    private function __construct(string $value, string $label)
     {
-        $this->category = $category;
+        $this->value = $value;
+        $this->label = $label;
     }
 
     /**
@@ -47,22 +54,43 @@ final class Category
      */
     public function value(): string
     {
-        return $this->category;
+        return $this->value;
     }
 
     /**
-     * @param string $category
+     * @return string
+     */
+    public function label(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $value
      *
      * @return Category
      */
-    public static function valueOf(string $category): Category
+    public static function valueOf(string $value): Category
     {
-        $category = strtolower($category);
-        if (in_array($category, self::CATEGORIES)) {
-            return new self($category);
+        if (array_key_exists($value, self::CATEGORIES)) {
+            return new self($value, self::CATEGORIES[$value]);
         }
 
-        throw new \LogicException("unknown category '{$category}'");
+        throw new \LogicException("unknown category '{$value}'");
+    }
+
+    /**
+     * @param string $label
+     *
+     * @return Category
+     */
+    public static function labelOf(string $label): Category
+    {
+        if (false !== ($value = array_search($label, self::CATEGORIES))) {
+            return new self($value, $label);
+        }
+
+        throw new \LogicException("unknown category '{$label}'");
     }
 
     /**
@@ -76,6 +104,6 @@ final class Category
         // unused
         unset($arguments);
 
-        return self::valueOf($name);
+        return self::valueOf(strtolower($name));
     }
 }
