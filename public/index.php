@@ -1,18 +1,20 @@
 <?php
 
-use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
+use Kawanamiyuu\HtbFeed\Application;
+use Kawanamiyuu\HtbFeed\AppModule;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
-use Relay\Relay;
-use Zend\Diactoros\ServerRequestFactory;
+use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
+use Ray\Di\Injector;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$request = ServerRequestFactory::fromGlobals();
+$injector = new Injector(new AppModule);
 
-$relay = new Relay([
-    new ResponderMiddleware,
-    new RouterMiddleware
+$app = $injector->getInstance(Application::class);
+/* @var Application $app*/
+
+$app->run([
+    ResponderMiddleware::class,
+    RouterMiddleware::class
 ]);
-
-$relay->handle($request);

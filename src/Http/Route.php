@@ -38,19 +38,18 @@ class Route
     /**
      * @param ServerRequestInterface $request
      *
-     * @return ResponseBuilderInterface
+     * @return string
      */
-    public static function matches(ServerRequestInterface $request): ResponseBuilderInterface
+    public static function matches(ServerRequestInterface $request): string
     {
         $path = rtrim($request->getUri()->getPath(), '/');
         $path = $path === '' ? '/' : $path;
 
         if (! in_array($path, array_keys(self::routes))) {
-            return new NotFoundResponseBuilder;
+            return NotFoundResponseBuilder::class;
         }
 
-        $responseBuilder = self::routes[$path];
-        return new $responseBuilder;
+        return self::routes[$path];
     }
 
     /**
