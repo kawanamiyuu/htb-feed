@@ -41,9 +41,10 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $feedUrl = Route::ATOM()->getUrl($request);
+        $atomUrl = Route::ATOM()->getUrl($request);
+        $rssUrl = Route::RSS()->getUrl($request);
 
-        $html = $this->buildHtml($feedUrl, self::TITLE, $bookmarks);
+        $html = $this->buildHtml($bookmarks, self::TITLE, $atomUrl, $rssUrl);
 
         $response = $response
             ->withStatus(200)
@@ -54,13 +55,14 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
     }
 
     /**
-     * @param string    $feedUrl
-     * @param string    $title
      * @param Bookmarks $bookmarks
+     * @param string    $title
+     * @param string    $atomUrl
+     * @param string    $rssUrl
      *
      * @return string
      */
-    private function buildHtml(string $feedUrl, string $title, Bookmarks $bookmarks): string
+    private function buildHtml(Bookmarks $bookmarks, string $title, string $atomUrl, string $rssUrl): string
     {
         ob_start();
         require dirname(__DIR__, 2) . '/src-files/html.php';

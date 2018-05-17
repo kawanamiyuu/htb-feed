@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @method static Route INDEX()
  * @method static Route ATOM()
+ * @method static Route RSS()
  */
 class Route
 {

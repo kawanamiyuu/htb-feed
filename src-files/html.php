@@ -1,13 +1,15 @@
 <?php
-/* @var string $feedUrl */
-/* @var string $title */
 /* @var \Kawanamiyuu\HtbFeed\Bookmark\Bookmarks $bookmarks */
+/* @var string $title */
+/* @var string $atomUrl */
+/* @var string $rssUrl */
 ?>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($title, ENT_QUOTES) ?></title>
-    <link rel="alternate" type="application/atom+xml" href="<?= $feedUrl ?>" title="<?= htmlspecialchars($title, ENT_QUOTES) ?>" />
+    <link rel="alternate" type="application/atom+xml" href="<?= $atomUrl ?>" title="<?= htmlspecialchars($title, ENT_QUOTES) ?>" />
+    <link rel="alternate" type="application/rss+xml" href="<?= $rssUrl ?>" title="<?= htmlspecialchars($title, ENT_QUOTES) ?>" />
 </head>
 <body>
 
