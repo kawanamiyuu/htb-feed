@@ -6,14 +6,11 @@ use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 
 interface FeedGeneratorInterface
 {
-    const TITLE = 'はてなブックマークの新着エントリー';
-
     /**
-     * @param Bookmarks $bookmarks
-     * @param string    $feedUrl
-     * @param string    $htmlUrl
+     * @param Bookmarks     $bookmarks
+     * @param Configuration $config
      *
      * @return string
      */
-    function __invoke(Bookmarks $bookmarks, string $feedUrl, string $htmlUrl): string;
+    function __invoke(Bookmarks $bookmarks, Configuration $config): string;
 }

@@ -14,15 +14,15 @@ class AtomGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Bookmarks $bookmarks, string $feedUrl, string $htmlUrl): string
+    public function __invoke(Bookmarks $bookmarks, Configuration $config): string
     {
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
         $feed = new Feed;
-        $feed->setTitle(self::TITLE);
-        $feed->setFeedLink($feedUrl, self::FEED_TYPE);
-        $feed->setLink($htmlUrl);
+        $feed->setTitle($config->title());
+        $feed->setFeedLink($config->atomUrl(), self::FEED_TYPE);
+        $feed->setLink($config->htmlUrl());
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 

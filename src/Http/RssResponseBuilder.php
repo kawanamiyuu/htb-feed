@@ -4,6 +4,7 @@ namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
+use Kawanamiyuu\HtbFeed\Feed\Configuration;
 use Kawanamiyuu\HtbFeed\Feed\RssGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -39,10 +40,9 @@ class RssResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $feedUrl = (string) $request->getUri();
-        $htmlUrl = Route::INDEX()->getUrl($request);
+        $config = new Configuration(Route::INDEX()->getUrl($request), Route::ATOM()->getUrl($request), Route::RSS()->getUrl($request));
 
-        $feed = (new RssGenerator)($bookmarks, $feedUrl, $htmlUrl);
+        $feed = (new RssGenerator)($bookmarks, $config);
 
         $response = $response
             ->withStatus(200)

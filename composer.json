@@ -16,7 +16,8 @@
     "autoload": {
         "psr-4": {
             "Kawanamiyuu\\HtbFeed\\": "src"
-        }
+        },
+        "files": ["src-files/functions.php"]
     },
     "config": {
         "sort-packages": true

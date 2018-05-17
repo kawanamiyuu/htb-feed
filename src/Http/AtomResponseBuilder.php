@@ -5,6 +5,7 @@ namespace Kawanamiyuu\HtbFeed\Http;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
+use Kawanamiyuu\HtbFeed\Feed\Configuration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -39,10 +40,9 @@ class AtomResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $feedUrl = (string) $request->getUri();
-        $htmlUrl = Route::INDEX()->getUrl($request);
+        $config = new Configuration(Route::INDEX()->getUrl($request), Route::ATOM()->getUrl($request), Route::RSS()->getUrl($request));
 
-        $feed = (new AtomGenerator)($bookmarks, $feedUrl, $htmlUrl);
+        $feed = (new AtomGenerator)($bookmarks, $config);
 
         $response = $response
             ->withStatus(200)

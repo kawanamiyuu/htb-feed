@@ -14,16 +14,16 @@ class RssGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Bookmarks $bookmarks, string $feedUrl, string $htmlUrl): string
+    public function __invoke(Bookmarks $bookmarks, Configuration $config): string
     {
         // RSS 2.0 の仕様
         // http://www.futomi.com/lecture/japanese/rss20.html#hrelementsOfLtitemgt
 
         $feed = new Feed();
-        $feed->setTitle(self::TITLE);
-        $feed->setFeedLink($feedUrl, self::FEED_TYPE);
-        $feed->setLink($htmlUrl);
-        $feed->setDescription(self::TITLE);
+        $feed->setTitle($config->title());
+        $feed->setFeedLink($config->rssUrl(), self::FEED_TYPE);
+        $feed->setLink($config->htmlUrl());
+        $feed->setDescription($config->title());
         // channel:pubDate (optional)
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 
