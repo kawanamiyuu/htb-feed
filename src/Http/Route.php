@@ -12,7 +12,8 @@ class Route
 {
     private const routes = [
         '/' => HtmlResponseBuilder::class,
-        '/atom' => AtomResponseBuilder::class
+        '/atom' => AtomResponseBuilder::class,
+        '/rss' => RssResponseBuilder::class
     ];
 
     /**
