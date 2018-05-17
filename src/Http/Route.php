@@ -7,12 +7,14 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @method static Route INDEX()
  * @method static Route ATOM()
+ * @method static Route RSS()
  */
 class Route
 {
     private const routes = [
         '/' => HtmlResponseBuilder::class,
-        '/atom' => AtomResponseBuilder::class
+        '/atom' => AtomResponseBuilder::class,
+        '/rss' => RssResponseBuilder::class
     ];
 
     /**

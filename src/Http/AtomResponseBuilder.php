@@ -10,8 +10,6 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AtomResponseBuilder implements ResponseBuilderInterface
 {
-    const TITLE = 'はてなブックマークの新着エントリー';
-
     const CONTENT_TYPE = 'application/atom+xml; charset=UTF-8';
 
     /**
@@ -44,7 +42,7 @@ class AtomResponseBuilder implements ResponseBuilderInterface
         $feedUrl = (string) $request->getUri();
         $htmlUrl = Route::INDEX()->getUrl($request);
 
-        $feed = (new AtomGenerator)($bookmarks, self::TITLE, $feedUrl, $htmlUrl);
+        $feed = (new AtomGenerator)($bookmarks, $feedUrl, $htmlUrl);
 
         $response = $response
             ->withStatus(200)

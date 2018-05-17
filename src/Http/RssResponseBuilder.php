@@ -3,16 +3,14 @@
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
-use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
+use Kawanamiyuu\HtbFeed\Feed\RssGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class HtmlResponseBuilder implements ResponseBuilderInterface
+class RssResponseBuilder implements ResponseBuilderInterface
 {
-    const TITLE = 'はてなブックマークの新着エントリー';
-
-    const CONTENT_TYPE = 'text/html; charset=UTF-8';
+    const CONTENT_TYPE = 'application/rss+xml; charset=UTF-8';
 
     /**
      * @var HtbClient
@@ -41,31 +39,16 @@ class HtmlResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $atomUrl = Route::ATOM()->getUrl($request);
-        $rssUrl = Route::RSS()->getUrl($request);
+        $feedUrl = (string) $request->getUri();
+        $htmlUrl = Route::INDEX()->getUrl($request);
 
-        $html = $this->buildHtml($bookmarks, self::TITLE, $atomUrl, $rssUrl);
+        $feed = (new RssGenerator)($bookmarks, $feedUrl, $htmlUrl);
 
         $response = $response
             ->withStatus(200)
             ->withHeader('Content-Type', self::CONTENT_TYPE);
-        $response->getBody()->write($html);
+        $response->getBody()->write($feed);
 
         return $response;
-    }
-
-    /**
-     * @param Bookmarks $bookmarks
-     * @param string    $title
-     * @param string    $atomUrl
-     * @param string    $rssUrl
-     *
-     * @return string
-     */
-    private function buildHtml(Bookmarks $bookmarks, string $title, string $atomUrl, string $rssUrl): string
-    {
-        ob_start();
-        require dirname(__DIR__, 2) . '/src-files/html.php';
-        return ob_get_clean();
     }
 }
