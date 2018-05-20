@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
 use Kawanamiyuu\HtbFeed\Bookmark\EntryListLoader;
+use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
 use Kawanamiyuu\HtbFeed\Http\FeedGeneratorProvider;
@@ -48,6 +49,7 @@ class AppModule extends AbstractModule
         $this->bind(ClientInterface::class)->to(Client::class);
         $this->bind(EntryListLoader::class);
         $this->bind(BookmarkExtractor::class);
+        $this->bind(HtbClient::class);
 
     }
 }
