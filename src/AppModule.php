@@ -6,10 +6,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
 use Kawanamiyuu\HtbFeed\Bookmark\EntryListLoader;
+use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
+use Kawanamiyuu\HtbFeed\Http\FeedGeneratorProvider;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponseBuilderFactory;
 use Kawanamiyuu\HtbFeed\Http\ResponsePrototypeFactory;
-use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
+use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\AbstractModule;
@@ -27,7 +29,9 @@ class AppModule extends AbstractModule
         $this->bind(Application::class);
 
         $this->bind(ResponderMiddleware::class);
-        $this->bind(RouterMiddleware::class);
+        $this->bind(FeedResponseBuilderMiddleware::class);
+
+        $this->bind(FeedGeneratorInterface::class)->toProvider(FeedGeneratorProvider::class);
 
         // dependencies to build and emit response
         $this->bind(ResponsePrototypeFactory::class)->in(Scope::SINGLETON);

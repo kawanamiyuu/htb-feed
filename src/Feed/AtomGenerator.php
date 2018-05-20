@@ -9,20 +9,31 @@ use Zend\Feed\Writer\Feed;
 
 class AtomGenerator implements FeedGeneratorInterface
 {
-    private const FEED_TYPE = 'atom';
+    /**
+     * @var Configuration
+     */
+    private $config;
+
+    /**
+     * @param Configuration $config
+     */
+    public function __construct(Configuration $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Bookmarks $bookmarks, Configuration $config): string
+    public function __invoke(Bookmarks $bookmarks): string
     {
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
         $feed = new Feed;
-        $feed->setTitle($config->title());
-        $feed->setFeedLink($config->atomUrl(), self::FEED_TYPE);
-        $feed->setLink($config->htmlUrl());
+        $feed->setTitle($this->config->title());
+        $feed->setFeedLink($this->config->atomUrl(), 'atom');
+        $feed->setLink($this->config->htmlUrl());
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 
@@ -38,12 +49,20 @@ class AtomGenerator implements FeedGeneratorInterface
             $feed->addEntry($entry);
         }
 
-        $xml = $feed->export(self::FEED_TYPE);
+        $xml = $feed->export('atom');
 
         // NOTE: DOMElement の仕様で、"&" が自動的に
         //       HTML エスケープ ("&" -> "&amp;") されてしまうので "&" に戻す
         $xml = str_replace('&amp;', '&', $xml);
 
         return $xml;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function getContentType(): string
+    {
+        return 'application/atom+xml; charset=UTF-8';
     }
 }

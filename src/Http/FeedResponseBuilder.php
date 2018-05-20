@@ -4,26 +4,30 @@ namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
-use Kawanamiyuu\HtbFeed\Feed\Configuration;
-use Kawanamiyuu\HtbFeed\Feed\RssGenerator;
+use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RssResponseBuilder implements ResponseBuilderInterface
+class FeedResponseBuilder implements ResponseBuilderInterface
 {
-    const CONTENT_TYPE = 'application/rss+xml; charset=UTF-8';
-
     /**
      * @var HtbClient
      */
     private $client;
 
     /**
-     * @param HtbClient $client
+     * @var FeedGeneratorInterface
      */
-    public function __construct(HtbClient $client)
+    private $feedGenerator;
+
+    /**
+     * @param HtbClient              $client
+     * @param FeedGeneratorInterface $feedGenerator
+     */
+    public function __construct(HtbClient $client, FeedGeneratorInterface $feedGenerator)
     {
         $this->client = $client;
+        $this->feedGenerator = $feedGenerator;
     }
 
     /**
@@ -40,13 +44,11 @@ class RssResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $config = new Configuration(Route::INDEX()->getUrl($request), Route::ATOM()->getUrl($request), Route::RSS()->getUrl($request));
-
-        $feed = (new RssGenerator)($bookmarks, $config);
+        $feed = ($this->feedGenerator)($bookmarks);
 
         $response = $response
             ->withStatus(200)
-            ->withHeader('Content-Type', self::CONTENT_TYPE);
+            ->withHeader('Content-Type', $this->feedGenerator->getContentType());
         $response->getBody()->write($feed);
 
         return $response;
