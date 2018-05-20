@@ -6,14 +6,14 @@ use Kawanamiyuu\HtbFeed\Feed\Configuration;
 use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class FeedGeneratorResolver
+class FeedGeneratorFactory
 {
     /**
      * @param ServerRequestInterface $request
      *
      * @return FeedGeneratorInterface
      */
-    public function __invoke(ServerRequestInterface $request): FeedGeneratorInterface
+    public function newInstance(ServerRequestInterface $request): FeedGeneratorInterface
     {
         $config = new Configuration(
             Route::HTML()->getUrl($request),
