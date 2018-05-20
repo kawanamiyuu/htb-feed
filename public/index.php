@@ -2,8 +2,9 @@
 
 use Kawanamiyuu\HtbFeed\Application;
 use Kawanamiyuu\HtbFeed\AppModule;
+use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
-use Kawanamiyuu\HtbFeed\Http\RouterMiddleware;
+use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
 use Ray\Di\Injector;
 
 require dirname(__DIR__) . '/bootstrap/bootstrap.php';
@@ -16,5 +17,6 @@ $app = $injector->getInstance(Application::class);
 
 $app->run([
     ResponderMiddleware::class,
-    RouterMiddleware::class
+    ErrorHandlerMiddleware::class,
+    FeedResponseBuilderMiddleware::class
 ]);

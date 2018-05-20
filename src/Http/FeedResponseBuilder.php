@@ -4,25 +4,30 @@ namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
-use Kawanamiyuu\HtbFeed\Feed\AtomGenerator;
+use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class AtomResponseBuilder implements ResponseBuilderInterface
+class FeedResponseBuilder implements ResponseBuilderInterface
 {
-    const CONTENT_TYPE = 'application/atom+xml; charset=UTF-8';
-
     /**
      * @var HtbClient
      */
     private $client;
 
     /**
-     * @param HtbClient $client
+     * @var FeedGeneratorInterface
      */
-    public function __construct(HtbClient $client)
+    private $feedGenerator;
+
+    /**
+     * @param HtbClient              $client
+     * @param FeedGeneratorInterface $feedGenerator
+     */
+    public function __construct(HtbClient $client, FeedGeneratorInterface $feedGenerator)
     {
         $this->client = $client;
+        $this->feedGenerator = $feedGenerator;
     }
 
     /**
@@ -39,14 +44,11 @@ class AtomResponseBuilder implements ResponseBuilderInterface
                 return $bookmark->users->value() >= $query->users->value();
             });
 
-        $feedUrl = (string) $request->getUri();
-        $htmlUrl = Route::INDEX()->getUrl($request);
-
-        $feed = (new AtomGenerator)($bookmarks, $feedUrl, $htmlUrl);
+        $feed = ($this->feedGenerator)($bookmarks);
 
         $response = $response
             ->withStatus(200)
-            ->withHeader('Content-Type', self::CONTENT_TYPE);
+            ->withHeader('Content-Type', $this->feedGenerator->getContentType());
         $response->getBody()->write($feed);
 
         return $response;

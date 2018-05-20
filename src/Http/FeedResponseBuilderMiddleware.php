@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class RouterMiddleware implements MiddlewareInterface
+class FeedResponseBuilderMiddleware implements MiddlewareInterface
 {
     /**
      * @var ResponsePrototypeFactory
@@ -35,9 +35,7 @@ class RouterMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $prototype = $this->prototypeFactory->newInstance();
-
-        $builderClass = Route::matches($request);
-        $builder = $this->builderFactory->newInstance($builderClass);
+        $builder = $this->builderFactory->newInstance(FeedResponseBuilder::class);
 
         return $builder($request, $prototype);
     }

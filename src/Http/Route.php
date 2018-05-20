@@ -2,19 +2,22 @@
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
+use Kawanamiyuu\HtbFeed\Feed\FeedType;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * @method static Route INDEX()
+ * @method static Route HTML()
  * @method static Route ATOM()
  * @method static Route RSS()
  */
 class Route
 {
-    private const routes = [
-        '/' => HtmlResponseBuilder::class,
-        '/atom' => AtomResponseBuilder::class,
-        '/rss' => RssResponseBuilder::class
+    private const ROUTES = [
+        '/' => FeedType::HTML,
+        '/html' => FeedType::HTML,
+        '/atom' => FeedType::ATOM,
+        '/rss' => FeedType::RSS
     ];
 
     /**
@@ -23,35 +26,44 @@ class Route
     private $path;
 
     /**
-     * @var string
+     * @var FeedType
      */
-    private $responseBuilder;
+    private $feedType;
 
     /**
-     * @param string $path
-     * @param string $responseBuilder
+     * @param string   $path
+     * @param FeedType $feedType
      */
-    private function __construct(string $path, string $responseBuilder)
+    private function __construct(string $path, FeedType $feedType)
     {
         $this->path = $path;
-        $this->responseBuilder = $responseBuilder;
+        $this->feedType = $feedType;
+    }
+
+    /**
+     * @return string
+     */
+    public function path(): string
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return FeedType
+     */
+    public function feedType(): FeedType
+    {
+        return $this->feedType;
     }
 
     /**
      * @param ServerRequestInterface $request
      *
-     * @return string
+     * @return Route
      */
-    public static function matches(ServerRequestInterface $request): string
+    public static function resolve(ServerRequestInterface $request): Route
     {
-        $path = rtrim($request->getUri()->getPath(), '/');
-        $path = $path === '' ? '/' : $path;
-
-        if (! in_array($path, array_keys(self::routes))) {
-            return NotFoundResponseBuilder::class;
-        }
-
-        return self::routes[$path];
+        return self::__callStatic(trim($request->getUri()->getPath(), '/'));
     }
 
     /**
@@ -68,11 +80,11 @@ class Route
         $name = strtolower($name);
         $path = '/' . ($name === 'index' ? '' : $name);
 
-        if (! in_array($path, array_keys(self::routes))) {
+        if (! array_key_exists($path, self::ROUTES)) {
             throw new \LogicException("unknown route '{$path}'");
         }
 
-        return new self($path, self::routes[$path]);
+        return new self($path, FeedType::typeOf(self::ROUTES[$path]));
     }
 
     /**
