@@ -2,6 +2,7 @@
 
 use Kawanamiyuu\HtbFeed\Application;
 use Kawanamiyuu\HtbFeed\AppModule;
+use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
 use Ray\Di\Injector;
@@ -16,5 +17,6 @@ $app = $injector->getInstance(Application::class);
 
 $app->run([
     ResponderMiddleware::class,
+    ErrorHandlerMiddleware::class,
     FeedResponseBuilderMiddleware::class
 ]);

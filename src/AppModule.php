@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
 use Kawanamiyuu\HtbFeed\Bookmark\EntryListLoader;
 use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
+use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
 use Kawanamiyuu\HtbFeed\Http\FeedGeneratorProvider;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponseBuilderFactory;
@@ -29,6 +30,7 @@ class AppModule extends AbstractModule
         $this->bind(Application::class);
 
         $this->bind(ResponderMiddleware::class);
+        $this->bind(ErrorHandlerMiddleware::class);
         $this->bind(FeedResponseBuilderMiddleware::class);
 
         $this->bind(FeedGeneratorInterface::class)->toProvider(FeedGeneratorProvider::class);
