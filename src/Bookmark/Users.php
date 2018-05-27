@@ -22,12 +22,6 @@ final class Users
      *
      * @return Users
      */
-
-    /**
-     * @param $users
-     *
-     * @return Users
-     */
     public static function valueOf($users): Users
     {
         if (is_int($users) && $users >= 0) {
