@@ -24,7 +24,7 @@ final class Configuration
     /**
      * @param string $htmlUrl
      * @param string $atomUrl
-     * @param        $rssUrl
+     * @param string $rssUrl
      */
     public function __construct(string $htmlUrl, string $atomUrl, string $rssUrl)
     {

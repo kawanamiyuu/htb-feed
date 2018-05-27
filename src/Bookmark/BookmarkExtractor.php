@@ -21,8 +21,8 @@ class BookmarkExtractor
             $bookmark = new Bookmark;
             $bookmark->category = Category::labelOf($node->filter('.entrylist-contents-category a')->text());
             $bookmark->users = Users::valueOf($node->filter('.entrylist-contents-users span')->text());
-            $bookmark->title = $node->filter('.entrylist-contents-title a')->attr('title');
-            $bookmark->url = $node->filter('.entrylist-contents-title a')->attr('href');
+            $bookmark->title = $node->filter('.entrylist-contents-title a')->attr('title') ?? '';
+            $bookmark->url = $node->filter('.entrylist-contents-title a')->attr('href') ?? '';
             $bookmark->domain = $node->filter('.entrylist-contents-domain a span')->text();
             $bookmark->date = new DateTime($node->filter('.entrylist-contents-date')->text(), new DateTimeZone('Asia/Tokyo'));
             $bookmarks[] = $bookmark;
