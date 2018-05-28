@@ -44,8 +44,12 @@ class AtomGenerator implements FeedGeneratorInterface
             // atom:updated
             $entry->setDateModified($bookmark->date);
             // atom:summary (optional)
-            $entry->setDescription(sprintf('ブクマ数: %s、カテゴリー: %s、発行元: %s',
-                $bookmark->users->value(), $bookmark->category->label(), $bookmark->domain));
+            $entry->setDescription(sprintf(
+                'ブクマ数: %s、カテゴリー: %s、発行元: %s',
+                $bookmark->users->value(),
+                $bookmark->category->label(),
+                $bookmark->domain
+            ));
             $feed->addEntry($entry);
         }
 
@@ -61,7 +65,7 @@ class AtomGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    function getContentType(): string
+    public function getContentType(): string
     {
         return 'application/atom+xml; charset=UTF-8';
     }

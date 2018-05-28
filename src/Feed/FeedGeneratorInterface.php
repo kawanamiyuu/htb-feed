@@ -16,10 +16,10 @@ interface FeedGeneratorInterface
      *
      * @return string
      */
-    function __invoke(Bookmarks $bookmarks): string;
+    public function __invoke(Bookmarks $bookmarks): string;
 
     /**
      * @return string
      */
-    function getContentType(): string;
+    public function getContentType(): string;
 }
