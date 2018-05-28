@@ -23,7 +23,7 @@ class HtmlGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    function __invoke(Bookmarks $bookmarks): string
+    public function __invoke(Bookmarks $bookmarks): string
     {
         return load_html_template([
             'bookmarks' => $bookmarks,
@@ -36,7 +36,7 @@ class HtmlGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    function getContentType(): string
+    public function getContentType(): string
     {
         return 'text/html; charset=UTF-8';
     }

@@ -45,8 +45,12 @@ class RssGenerator implements FeedGeneratorInterface
             // item:pubDate (optional)
             $entry->setDateModified($bookmark->date);
             // item:description (optional)
-            $entry->setDescription(sprintf('ブクマ数: %s、カテゴリー: %s、発行元: %s',
-                $bookmark->users->value(), $bookmark->category->label(), $bookmark->domain));
+            $entry->setDescription(sprintf(
+                'ブクマ数: %s、カテゴリー: %s、発行元: %s',
+                $bookmark->users->value(),
+                $bookmark->category->label(),
+                $bookmark->domain
+            ));
             $feed->addEntry($entry);
         }
 
@@ -62,7 +66,7 @@ class RssGenerator implements FeedGeneratorInterface
     /**
      * {@inheritdoc}
      */
-    function getContentType(): string
+    public function getContentType(): string
     {
         return 'application/rss+xml; charset=UTF-8';
     }

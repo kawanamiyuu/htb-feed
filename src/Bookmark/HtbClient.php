@@ -40,7 +40,7 @@ class HtbClient
 
         $promises = [];
         foreach (range(1, self::MAX_PAGE) as $page) {
-            $promises[] = $loader($category, $page)->then(function ($html) use($extractor) {
+            $promises[] = $loader($category, $page)->then(function ($html) use ($extractor) {
                 return $extractor($html)->toArray();
             });
         }

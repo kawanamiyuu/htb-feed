@@ -36,7 +36,6 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-
         } catch (\Exception $e) {
             error_log($e);
 
