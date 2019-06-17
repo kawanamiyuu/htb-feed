@@ -8,14 +8,14 @@
         "psr/http-server-middleware": "^1.0",
         "ray/di": "^2.7",
         "relay/relay": "2.x@dev",
-        "symfony/css-selector": "^4.0",
-        "symfony/dom-crawler": "^4.0",
-        "zendframework/zend-diactoros": "^1.7",
-        "zendframework/zend-feed": "^2.9"
+        "symfony/css-selector": "^4.3",
+        "symfony/dom-crawler": "^4.3",
+        "zendframework/zend-diactoros": "^1.8",
+        "zendframework/zend-feed": "^2.12"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.9.2",
-        "squizlabs/php_codesniffer": "3.x-dev"
+        "phpstan/phpstan": "^0.11",
+        "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
         "psr-4": {
