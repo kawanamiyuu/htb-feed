@@ -87,6 +87,7 @@ final class Category
     public static function labelOf(string $label): Category
     {
         if (false !== ($value = array_search($label, self::CATEGORIES))) {
+            assert(is_string($value));
             return new self($value, $label);
         }
 
