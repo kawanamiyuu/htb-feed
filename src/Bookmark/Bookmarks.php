@@ -2,10 +2,14 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+use ArrayIterator;
+use IteratorAggregate;
+use Traversable;
+
 /**
- * @implements \IteratorAggregate<Bookmark>
+ * @implements IteratorAggregate<Bookmark>
  */
-final class Bookmarks implements \IteratorAggregate
+final class Bookmarks implements IteratorAggregate
 {
     /**
      * @var Bookmark[]
@@ -56,10 +60,10 @@ final class Bookmarks implements \IteratorAggregate
     }
     
     /**
-     * @return \Traversable|Bookmark[]
+     * @return Traversable|Bookmark[]
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->bookmarks);
+        return new ArrayIterator($this->bookmarks);
     }
 }

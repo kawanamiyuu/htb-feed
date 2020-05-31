@@ -26,20 +26,10 @@ class QueryExtractor
     public function __invoke(ServerRequestInterface $request): QueryExtractor
     {
         $category = $request->getQueryParams()['category'];
-        if (isset($category)) {
-            $this->category = Category::valueOf($category);
-        } else {
-            // default
-            $this->category = Category::ALL();
-        }
+        $this->category = isset($category) ? Category::valueOf($category) : Category::ALL();
 
         $users = $request->getQueryParams()['users'];
-        if (isset($users)) {
-            $this->users = Users::valueOf($users);
-        } else {
-            // default
-            $this->users = Users::valueOf(100);
-        }
+        $this->users = isset($users) ? Users::valueOf($users) : Users::valueOf(100);
 
         return $this;
     }

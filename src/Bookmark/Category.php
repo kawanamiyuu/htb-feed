@@ -2,6 +2,8 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+use LogicException;
+
 /**
  * @method static Category ALL()
  * @method static Category GENERAL()
@@ -76,7 +78,7 @@ final class Category
             return new self($value, self::CATEGORIES[$value]);
         }
 
-        throw new \LogicException("unknown category '{$value}'");
+        throw new LogicException("unknown category '{$value}'");
     }
 
     /**
@@ -86,12 +88,12 @@ final class Category
      */
     public static function labelOf(string $label): Category
     {
-        if (false !== ($value = array_search($label, self::CATEGORIES))) {
-            assert(is_string($value));
+        $value = array_search($label, self::CATEGORIES, true);
+        if ($value !== false) {
             return new self($value, $label);
         }
 
-        throw new \LogicException("unknown category '{$label}'");
+        throw new LogicException("unknown category '{$label}'");
     }
 
     /**

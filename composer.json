@@ -21,6 +21,7 @@
         "zendframework/zend-feed": "^2.12"
     },
     "require-dev": {
+        "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12",
         "squizlabs/php_codesniffer": "^3.5"
     },
@@ -34,6 +35,7 @@
         "check": ["@lint"],
         "lint": [
             "phpcs --standard=PSR12 src",
+            "phpmd src text phpmd.xml",
             "phpstan analyze --no-progress --level=max src"
         ],
         "fmt": "phpcbf --standard=PSR12 src"

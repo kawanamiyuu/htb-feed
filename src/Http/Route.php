@@ -3,6 +3,7 @@
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Feed\FeedType;
+use LogicException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -81,7 +82,7 @@ class Route
         $path = '/' . ($name === 'index' ? '' : $name);
 
         if (! array_key_exists($path, self::ROUTES)) {
-            throw new \LogicException("unknown route '{$path}'");
+            throw new LogicException("unknown route '{$path}'");
         }
 
         return new self($path, FeedType::typeOf(self::ROUTES[$path]));
