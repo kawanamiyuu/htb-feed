@@ -2,6 +2,8 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+use LogicException;
+
 final class Users
 {
     /**
@@ -31,7 +33,7 @@ final class Users
             return new self((int) $users);
         }
 
-        throw new \LogicException('"users" must be positive integer.');
+        throw new LogicException('"users" must be positive integer.');
     }
 
     /**

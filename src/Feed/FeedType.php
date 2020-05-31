@@ -2,6 +2,8 @@
 
 namespace Kawanamiyuu\HtbFeed\Feed;
 
+use LogicException;
+
 /**
  * @method static FeedType HTML()
  * @method static FeedType ATOM()
@@ -63,7 +65,7 @@ final class FeedType
     public static function typeOf(string $type): FeedType
     {
         if (! array_key_exists($type, self::TYPES)) {
-            throw new \LogicException("unknown feed type '{$type}'");
+            throw new LogicException("unknown feed type '{$type}'");
         }
 
         return new self($type, self::TYPES[$type]);
