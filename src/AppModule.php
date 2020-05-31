@@ -18,7 +18,7 @@ class AppModule extends AbstractModule
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)

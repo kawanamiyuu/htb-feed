@@ -1,6 +1,13 @@
 {
     "name": "kawanamiyuu/htb-feed",
+    "type": "project",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Yuu Kawanami",
+            "email": "yuu.kawanami@gmail.com"
+        }
+    ],
     "minimum-stability": "stable",
     "require": {
         "php": "^7.2",
@@ -14,7 +21,7 @@
         "zendframework/zend-feed": "^2.12"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan": "^0.12",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
@@ -23,14 +30,15 @@
         },
         "files": ["src-files/functions.php"]
     },
+    "scripts": {
+        "check": ["@lint"],
+        "lint": [
+            "phpcs --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation -p src",
+            "phpstan analyze --no-progress --level=max src"
+        ],
+        "fmt": "phpcbf --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation -p src"
+    },
     "config": {
         "sort-packages": true
-    },
-    "scripts": {
-        "analyze": [
-            "phpcs --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation -p src",
-            "phpstan analyze --level max src"
-        ],
-        "cs-fix": "phpcbf --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation -p src"
     }
 }
