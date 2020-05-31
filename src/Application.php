@@ -22,7 +22,7 @@ class Application
     }
 
     /**
-     * @param array $middlewares
+     * @param array<string> $middlewares
      */
     public function run(array $middlewares): void
     {

@@ -2,6 +2,9 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+/**
+ * @implements \IteratorAggregate<Bookmark>
+ */
 final class Bookmarks implements \IteratorAggregate
 {
     /**
