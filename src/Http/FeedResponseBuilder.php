@@ -35,7 +35,7 @@ class FeedResponseBuilder implements ResponseBuilderInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $query = (new QueryExtractor)($request);
+        $query = (new QueryExtractor())($request);
         /* @var QueryExtractor $query */
 
         $bookmarks = $this->client

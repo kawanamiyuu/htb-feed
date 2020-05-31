@@ -12,6 +12,6 @@ class ResponsePrototypeFactory
      */
     public function newInstance(): ResponseInterface
     {
-        return new Response;
+        return new Response();
     }
 }

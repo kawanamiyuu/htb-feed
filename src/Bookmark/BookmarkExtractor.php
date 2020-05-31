@@ -22,7 +22,7 @@ class BookmarkExtractor
         (new Crawler($html))
             ->filter('.entrylist-item .entrylist-image-entry')
             ->each(function (Crawler $node) use (&$bookmarks, $timeZone) {
-                $bookmark = new Bookmark;
+                $bookmark = new Bookmark();
                 $bookmark->category = Category::labelOf($node->filter('.entrylist-contents-category a')->text());
                 $bookmark->users = Users::valueOf($node->filter('.entrylist-contents-users span')->text());
                 $bookmark->title = $node->filter('.entrylist-contents-title a')->attr('title') ?? '';

@@ -30,7 +30,7 @@ class AtomGenerator implements FeedGeneratorInterface
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
-        $feed = new Feed;
+        $feed = new Feed();
         $feed->setTitle($this->config->title());
         $feed->setFeedLink($this->config->atomUrl(), 'atom');
         $feed->setLink($this->config->htmlUrl());
