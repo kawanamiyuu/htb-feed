@@ -3,6 +3,7 @@
 namespace Kawanamiyuu\HtbFeed\Feed;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
+
 use function Kawanamiyuu\HtbFeed\load_html_template;
 
 class HtmlGenerator implements FeedGeneratorInterface

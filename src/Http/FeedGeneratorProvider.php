@@ -26,6 +26,6 @@ class FeedGeneratorProvider implements ProviderInterface
      */
     public function get(): FeedGeneratorInterface
     {
-        return (new FeedGeneratorFactory)->newInstance($this->request);
+        return (new FeedGeneratorFactory())->newInstance($this->request);
     }
 }

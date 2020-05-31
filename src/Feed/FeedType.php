@@ -9,9 +9,9 @@ namespace Kawanamiyuu\HtbFeed\Feed;
  */
 final class FeedType
 {
-    const HTML = 'html';
-    const ATOM = 'atom';
-    const RSS = 'rss';
+    public const HTML = 'html';
+    public const ATOM = 'atom';
+    public const RSS = 'rss';
 
     private const TYPES = [
         self::HTML => HtmlGenerator::class,
