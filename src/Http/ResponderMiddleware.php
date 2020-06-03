@@ -2,11 +2,11 @@
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
+use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\EmitterInterface;
 
 class ResponderMiddleware implements MiddlewareInterface
 {

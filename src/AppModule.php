@@ -10,11 +10,11 @@ use Kawanamiyuu\HtbFeed\Http\FeedGeneratorProvider;
 use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
+use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
+use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
-use Zend\Diactoros\Response\EmitterInterface;
-use Zend\Diactoros\Response\SapiStreamEmitter;
 
 class AppModule extends AbstractModule
 {
