@@ -2,6 +2,8 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+use DateTimeInterface;
+
 final class Bookmark
 {
     /** @var Category */
@@ -19,6 +21,6 @@ final class Bookmark
     /** @var string */
     public $domain;
 
-    /** @var \DateTime */
+    /** @var DateTimeInterface */
     public $date;
 }
