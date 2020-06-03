@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ceae3f233186b4880ab5afa782e3a640",
+    "content-hash": "f4b3d28c68ba901ba18927fdf2dbe180",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -717,16 +717,16 @@
         },
         {
             "name": "relay/relay",
-            "version": "2.x-dev",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/relayphp/Relay.Relay.git",
-                "reference": "d1e5cd040c5e0bcb936c2119adf1c2c74860952c"
+                "reference": "48dadb37247f93453191d16ee5c1993f5d06b7af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/relayphp/Relay.Relay/zipball/d1e5cd040c5e0bcb936c2119adf1c2c74860952c",
-                "reference": "d1e5cd040c5e0bcb936c2119adf1c2c74860952c",
+                "url": "https://api.github.com/repos/relayphp/Relay.Relay/zipball/48dadb37247f93453191d16ee5c1993f5d06b7af",
+                "reference": "48dadb37247f93453191d16ee5c1993f5d06b7af",
                 "shasum": ""
             },
             "require": {
@@ -745,6 +745,7 @@
                 "phpstan/phpstan": "^0.12.14",
                 "phpunit/phpunit": "~7.0",
                 "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^3.5",
                 "vimeo/psalm": "^3.9"
             },
             "type": "library",
@@ -770,7 +771,7 @@
                 "psr-15",
                 "psr-7"
             ],
-            "time": "2020-04-17T02:11:37+00:00"
+            "time": "2020-03-18T20:42:42+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -3621,9 +3622,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "relay/relay": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

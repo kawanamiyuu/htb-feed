@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "psr/http-server-middleware": "^1.0",
         "ray/di": "^2.10",
-        "relay/relay": "2.x@dev",
+        "relay/relay": "^2.1",
         "symfony/css-selector": "^5.1",
         "symfony/dom-crawler": "^5.1",
         "zendframework/zend-diactoros": "^1.8",
