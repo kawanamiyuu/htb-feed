@@ -49,7 +49,7 @@ class RssGeneratorTest extends TestCase
     <title>はてなブックマークの新着エントリー</title>
     <description>はてなブックマークの新着エントリー</description>
     <pubDate>now</pubDate>
-    <generator>Zend_Feed_Writer 2 (http://framework.zend.com)</generator>
+    <generator>Laminas_Feed_Writer 2 (https://getlaminas.org)</generator>
     <link>http://example.com?category=it&users=10</link>
     <atom:link rel="self" type="application/rss+xml" href="http://example.com/rss?category=it&users=10"/>
     <item>

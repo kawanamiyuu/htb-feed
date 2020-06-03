@@ -47,7 +47,7 @@ class AtomGeneratorTest extends TestCase
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">はてなブックマークの新着エントリー</title>
   <updated>now</updated>
-  <generator uri="http://framework.zend.com" version="2">Zend_Feed_Writer</generator>
+  <generator uri="https://getlaminas.org" version="2">Laminas_Feed_Writer</generator>
   <link rel="alternate" type="text/html" href="http://example.com?category=it&users=10"/>
   <link rel="self" type="application/atom+xml" href="http://example.com/atom?category=it&users=10"/>
   <id>http://example.com?category=it&users=10</id>
