@@ -4,7 +4,7 @@ namespace Kawanamiyuu\HtbFeed\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\ProviderInterface;
-use Zend\Diactoros\ServerRequestFactory;
+use Laminas\Diactoros\ServerRequestFactory;
 
 class ServerRequestProvider implements ProviderInterface
 {
