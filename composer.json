@@ -35,8 +35,7 @@
     "autoload-dev": {
         "psr-4": {
             "Kawanamiyuu\\HtbFeed\\": "tests"
-        },
-        "files": ["src-files/functions.php"]
+        }
     },
     "scripts": {
         "check": ["@lint", "@test"],
