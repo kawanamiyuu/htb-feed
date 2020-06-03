@@ -11,12 +11,12 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^7.4",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^6.5",
         "psr/http-server-middleware": "^1.0",
-        "ray/di": "^2.7",
+        "ray/di": "^2.10",
         "relay/relay": "2.x@dev",
-        "symfony/css-selector": "^4.3",
-        "symfony/dom-crawler": "^4.3",
+        "symfony/css-selector": "^5.1",
+        "symfony/dom-crawler": "^5.1",
         "zendframework/zend-diactoros": "^1.8",
         "zendframework/zend-feed": "^2.12"
     },
