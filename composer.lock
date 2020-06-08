@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a169a7aa76ac165dc73132342a13797",
+    "content-hash": "686ec640e33282020a3a90a71e739f0d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -325,6 +325,52 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "k9u/enum",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kawanamiyuu/K9u.Enum.git",
+                "reference": "7c97fbe78ca67e1caff61b29386063e2f29f08d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kawanamiyuu/K9u.Enum/zipball/7c97fbe78ca67e1caff61b29386063e2f29f08d0",
+                "reference": "7c97fbe78ca67e1caff61b29386063e2f29f08d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "^2.8",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^8.5",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "K9u\\Enum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yuu Kawanami",
+                    "email": "yuu.kawanami@gmail.com"
+                }
+            ],
+            "description": "an Enumeration implementation for PHP",
+            "keywords": [
+                "enum",
+                "enumeration"
+            ],
+            "time": "2020-06-09T03:08:50+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
