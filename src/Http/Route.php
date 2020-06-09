@@ -2,6 +2,7 @@
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
+use K9u\Enum\AbstractEnum;
 use Kawanamiyuu\HtbFeed\Feed\FeedType;
 use LogicException;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,91 +13,48 @@ use Psr\Http\Message\ServerRequestInterface;
  * @method static Route ATOM()
  * @method static Route RSS()
  */
-class Route
+final class Route extends AbstractEnum
 {
-    private const ROUTES = [
-        '/' => FeedType::HTML,
-        '/html' => FeedType::HTML,
-        '/atom' => FeedType::ATOM,
-        '/rss' => FeedType::RSS
-    ];
-
     /**
-     * @var string
+     * @return array<string, array{string, string}>
      */
-    private $path;
-
-    /**
-     * @var FeedType
-     */
-    private $feedType;
-
-    /**
-     * @param string   $path
-     * @param FeedType $feedType
-     */
-    private function __construct(string $path, FeedType $feedType)
+    protected static function enumerate(): array
     {
-        $this->path = $path;
-        $this->feedType = $feedType;
+        return [
+            'INDEX' => ['/', FeedType::HTML()],
+            'HTML' => ['/html', FeedType::HTML()],
+            'ATOM' => ['/atom', FeedType::ATOM()],
+            'RSS' => ['/rss', FeedType::RSS()]
+        ];
     }
 
-    /**
-     * @return string
-     */
     public function path(): string
     {
-        return $this->path;
+        return $this->getConstantValue()[0];
     }
 
-    /**
-     * @return FeedType
-     */
     public function feedType(): FeedType
     {
-        return $this->feedType;
+        return $this->getConstantValue()[1];
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return Route
-     */
     public static function resolve(ServerRequestInterface $request): Route
     {
-        return self::__callStatic(trim($request->getUri()->getPath(), '/'));
-    }
+        $path = '/' . trim($request->getUri()->getPath(), '/');
 
-    /**
-     * @param string $name
-     * @param array<mixed> $arguments
-     *
-     * @return Route
-     */
-    public static function __callStatic(string $name, array $arguments = []): self
-    {
-        // unused
-        unset($arguments);
-
-        $name = strtolower($name);
-        $path = '/' . ($name === 'index' ? '' : $name);
-
-        if (! array_key_exists($path, self::ROUTES)) {
-            throw new LogicException("unknown route '{$path}'");
+        foreach (self::constants() as $constant) {
+            if ($constant->path() === $path) {
+                return $constant;
+            }
         }
 
-        return new self($path, FeedType::typeOf(self::ROUTES[$path]));
+        throw new LogicException("unknown route {$path}");
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return string
-     */
     public function getUrl(ServerRequestInterface $request): string
     {
         $uri = $request->getUri();
-        $url = sprintf('%s://%s%s?%s', $uri->getScheme(), $uri->getAuthority(), $this->path, $uri->getQuery());
+        $url = sprintf('%s://%s%s?%s', $uri->getScheme(), $uri->getAuthority(), $this->path(), $uri->getQuery());
         // trim trailing '?' if query does not exist
         return rtrim($url, '?');
     }

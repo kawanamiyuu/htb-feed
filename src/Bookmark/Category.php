@@ -2,6 +2,7 @@
 
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
+use K9u\Enum\AbstractEnum;
 use LogicException;
 
 /**
@@ -16,97 +17,56 @@ use LogicException;
  * @method static Category ENTERTAINMENT()
  * @method static Category GAME()
  */
-final class Category
+final class Category extends AbstractEnum
 {
-    private const CATEGORIES = [
-        'all' => '総合',
-        'general' => '一般',
-        'social' => '世の中',
-        'economics' => '政治と経済',
-        'life' => '暮らし',
-        'knowledge' => '学び',
-        'it' => 'テクノロジー',
-        'fun' => 'おもしろ',
-        'entertainment' => 'エンタメ',
-        'game' => 'アニメとゲーム'
-    ];
-
     /**
-     * @var string
+     * @return array<string, array{string, string}>
      */
-    private $value;
-
-    /**
-     * @var string
-     */
-    private $label;
-
-    /**
-     * @param string $value
-     * @param string $label
-     */
-    private function __construct(string $value, string $label)
+    protected static function enumerate(): array
     {
-        $this->value = $value;
-        $this->label = $label;
+        return [
+            'ALL' => ['all', '総合'],
+            'GENERAL' => ['general', '一般'],
+            'SOCIAL' => ['social', '世の中'],
+            'ECONOMICS' => ['economics', '政治と経済'],
+            'LIFE' => ['life', '暮らし'],
+            'KNOWLEDGE' => ['knowledge', '学び'],
+            'IT' => ['it', 'テクノロジー'],
+            'FUN' => ['fun', 'おもしろ'],
+            'ENTERTAINMENT' => ['entertainment', 'エンタメ'],
+            'GAME' => ['game', 'アニメとゲーム']
+        ];
     }
 
-    /**
-     * @return string
-     */
     public function value(): string
     {
-        return $this->value;
+        return $this->getConstantValue()[0];
     }
 
-    /**
-     * @return string
-     */
     public function label(): string
     {
-        return $this->label;
+        return $this->getConstantValue()[1];
     }
 
-    /**
-     * @param string $value
-     *
-     * @return Category
-     */
     public static function valueOf(string $value): Category
     {
-        if (array_key_exists($value, self::CATEGORIES)) {
-            return new self($value, self::CATEGORIES[$value]);
+        foreach (self::constants() as $constant) {
+            if ($constant->value() === $value) {
+                return $constant;
+            }
         }
 
-        throw new LogicException("unknown category '{$value}'");
+        throw new LogicException("unknown category: {$value}");
     }
 
-    /**
-     * @param string $label
-     *
-     * @return Category
-     */
     public static function labelOf(string $label): Category
     {
-        $value = array_search($label, self::CATEGORIES, true);
-        if ($value !== false) {
-            return new self($value, $label);
+        foreach (self::constants() as $constant) {
+            if ($constant->label() === $label) {
+                return $constant;
+            }
         }
 
-        throw new LogicException("unknown category '{$label}'");
-    }
-
-    /**
-     * @param string $name
-     * @param array<mixed> $arguments
-     *
-     * @return Category
-     */
-    public static function __callStatic(string $name, array $arguments = []): Category
-    {
-        // unused
-        unset($arguments);
-
-        return self::valueOf(strtolower($name));
+        throw new LogicException("unknown category: {$label}");
     }
 }
