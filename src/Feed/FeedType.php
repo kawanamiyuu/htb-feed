@@ -2,86 +2,34 @@
 
 namespace Kawanamiyuu\HtbFeed\Feed;
 
-use LogicException;
+use K9u\Enum\AbstractEnum;
 
 /**
  * @method static FeedType HTML()
  * @method static FeedType ATOM()
  * @method static FeedType RSS()
  */
-final class FeedType
+final class FeedType extends AbstractEnum
 {
-    public const HTML = 'html';
-    public const ATOM = 'atom';
-    public const RSS = 'rss';
-
-    private const TYPES = [
-        self::HTML => HtmlGenerator::class,
-        self::ATOM => AtomGenerator::class,
-        self::RSS => RssGenerator::class
-    ];
-
     /**
-     * @var string
+     * @return array<string, array{string, string}>
      */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $generator;
-
-    /**
-     * @param string $type
-     * @param string $generator
-     */
-    public function __construct(string $type, string $generator)
+    protected static function enumerate(): array
     {
-        $this->type = $type;
-        $this->generator = $generator;
+        return [
+            'HTML' => ['html', HtmlGenerator::class],
+            'ATOM' => ['atom', AtomGenerator::class],
+            'RSS' => ['rss', RssGenerator::class]
+        ];
     }
 
-    /**
-     * @return string
-     */
     public function type(): string
     {
-        return $this->type;
+        return $this->getConstantValue()[0];
     }
 
-    /**
-     * @return string
-     */
     public function generator(): string
     {
-        return $this->generator;
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return FeedType
-     */
-    public static function typeOf(string $type): FeedType
-    {
-        if (! array_key_exists($type, self::TYPES)) {
-            throw new LogicException("unknown feed type '{$type}'");
-        }
-
-        return new self($type, self::TYPES[$type]);
-    }
-
-    /**
-     * @param string $name
-     * @param array<mixed>  $arguments
-     *
-     * @return FeedType
-     */
-    public static function __callStatic(string $name, array $arguments = []): FeedType
-    {
-        // unused
-        unset($arguments);
-
-        return self::typeOf(strtolower($name));
+        return $this->getConstantValue()[1];
     }
 }
