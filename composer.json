@@ -46,9 +46,15 @@
             "phpmd src text phpmd.xml",
             "phpstan analyze --no-progress --level=max src"
         ],
-        "fmt": "phpcbf --standard=PSR12 src"
+        "fmt": "phpcbf --standard=PSR12 src",
+        "serve": [
+            "rm -f var/tmp/*.txt",
+            "rm -f var/tmp/*.php",
+            "php -S localhost:8080 -t public"
+        ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "process-timeout": 0
     }
 }
