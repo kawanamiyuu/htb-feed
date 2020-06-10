@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 
 class ErrorHandlerMiddleware implements MiddlewareInterface
 {
@@ -15,18 +16,11 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     private $prototypeFactory;
 
     /**
-     * @var ResponseBuilderFactory
-     */
-    private $builderFactory;
-
-    /**
      * @param ResponsePrototypeFactory $prototypeFactory
-     * @param ResponseBuilderFactory   $builderFactory
      */
-    public function __construct(ResponsePrototypeFactory $prototypeFactory, ResponseBuilderFactory $builderFactory)
+    public function __construct(ResponsePrototypeFactory $prototypeFactory)
     {
         $this->prototypeFactory = $prototypeFactory;
-        $this->builderFactory = $builderFactory;
     }
 
     /**
@@ -36,13 +30,10 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             error_log($e);
 
-            $response = $this->prototypeFactory->newInstance();
-            $builder = $this->builderFactory->newInstance(ErrorResponseBuilder::class);
-
-            return $builder($request, $response);
+            return $this->prototypeFactory->newInstance()->withStatus(500);
         }
     }
 }

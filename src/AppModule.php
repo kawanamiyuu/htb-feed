@@ -4,9 +4,7 @@ namespace Kawanamiyuu\HtbFeed;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
-use Kawanamiyuu\HtbFeed\Http\FeedGeneratorProvider;
 use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
@@ -34,7 +32,5 @@ class AppModule extends AbstractModule
         $this->bind(EmitterInterface::class)->to(SapiStreamEmitter::class);
 
         $this->bind(ClientInterface::class)->to(Client::class);
-
-        $this->bind(FeedGeneratorInterface::class)->toProvider(FeedGeneratorProvider::class);
     }
 }

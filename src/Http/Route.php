@@ -48,7 +48,8 @@ final class Route extends AbstractEnum
             }
         }
 
-        throw new LogicException("unknown route {$path}");
+        // FIXME: should be handled as 4XX error
+        throw new LogicException("unknown route: {$path}");
     }
 
     public function getUrl(ServerRequestInterface $request): string
