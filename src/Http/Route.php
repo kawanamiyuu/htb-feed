@@ -4,7 +4,6 @@ namespace Kawanamiyuu\HtbFeed\Http;
 
 use K9u\Enum\AbstractEnum;
 use Kawanamiyuu\HtbFeed\Feed\FeedType;
-use LogicException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -38,7 +37,7 @@ final class Route extends AbstractEnum
         return $this->getConstantValue()[1];
     }
 
-    public static function resolve(ServerRequestInterface $request): Route
+    public static function resolve(ServerRequestInterface $request): ?Route
     {
         $path = '/' . trim($request->getUri()->getPath(), '/');
 
@@ -48,8 +47,7 @@ final class Route extends AbstractEnum
             }
         }
 
-        // FIXME: should be handled as 4XX error
-        throw new LogicException("unknown route: {$path}");
+        return null;
     }
 
     public function getUrl(ServerRequestInterface $request): string

@@ -8,6 +8,7 @@ use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Bookmark\Users;
 use Kawanamiyuu\HtbFeed\Feed\Configuration;
 use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
+use Kawanamiyuu\HtbFeed\Feed\FeedType;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -40,6 +41,11 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $route = Route::resolve($request);
+        if ($route === null) {
+            return $this->prototypeFactory->newInstance()->withStatus(404);
+        }
+
         $category = isset($request->getQueryParams()['category'])
             ? Category::valueOf($request->getQueryParams()['category']) // TODO: validation
             : Category::ALL();
@@ -54,7 +60,7 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
                 return $bookmark->users->value() >= $users->value();
             });
 
-        $feedGenerator = $this->createFeedGenerator($request);
+        $feedGenerator = $this->createFeedGenerator($route->feedType(), $request);
         $feed = ($feedGenerator)($bookmarks);
 
         $response = $this->prototypeFactory->newInstance()
@@ -66,7 +72,7 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
         return $response;
     }
 
-    private function createFeedGenerator(ServerRequestInterface $request): FeedGeneratorInterface
+    private function createFeedGenerator(FeedType $feedType, ServerRequestInterface $request): FeedGeneratorInterface
     {
         $config = new Configuration(
             Route::HTML()->getUrl($request),
@@ -74,7 +80,7 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
             Route::RSS()->getUrl($request)
         );
 
-        $generator = Route::resolve($request)->feedType()->generator();
+        $generator = $feedType->generator();
 
         return new $generator($config);
     }
