@@ -14,8 +14,8 @@ define('ROOT_DIR', dirname(__DIR__));
 require ROOT_DIR . '/bootstrap/bootstrap.php';
 require ROOT_DIR . '/vendor/autoload.php';
 
-$injector = new ScriptInjector(ROOT_DIR . '/var/tmp', function () use(&$injector) {
-    $module = new AppModule;
+$injector = new ScriptInjector(ROOT_DIR . '/var/tmp', function () use (&$injector) {
+    $module = new AppModule();
     (new Bind($module->getContainer(), InjectorInterface::class))->toInstance($injector);
     return $module;
 });
