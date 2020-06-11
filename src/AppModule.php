@@ -4,9 +4,6 @@ namespace Kawanamiyuu\HtbFeed;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
-use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
-use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
 use Kawanamiyuu\HtbFeed\Http\ServerRequestProvider;
 use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
@@ -21,10 +18,6 @@ class AppModule extends AbstractModule
      */
     protected function configure(): void
     {
-        $this->bind(ResponderMiddleware::class);
-        $this->bind(ErrorHandlerMiddleware::class);
-        $this->bind(FeedResponseBuilderMiddleware::class);
-
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)
             ->in(Scope::SINGLETON);
