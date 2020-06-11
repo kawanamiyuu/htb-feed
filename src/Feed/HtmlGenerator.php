@@ -9,16 +9,16 @@ use function Kawanamiyuu\HtbFeed\load_html_template;
 class HtmlGenerator implements FeedGeneratorInterface
 {
     /**
-     * @var Configuration
+     * @var FeedMeta
      */
-    private $config;
+    private $meta;
 
     /**
-     * @param Configuration $config
+     * @param FeedMeta $meta
      */
-    public function __construct(Configuration $config)
+    public function __construct(FeedMeta $meta)
     {
-        $this->config = $config;
+        $this->meta = $meta;
     }
 
     /**
@@ -28,9 +28,9 @@ class HtmlGenerator implements FeedGeneratorInterface
     {
         return load_html_template([
             'bookmarks' => $bookmarks,
-            'title' => $this->config->title(),
-            'atomUrl' => $this->config->atomUrl(),
-            'rssUrl' => $this->config->rssUrl()
+            'title' => $this->meta->title(),
+            'atomUrl' => $this->meta->atomUrl(),
+            'rssUrl' => $this->meta->rssUrl()
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 namespace Kawanamiyuu\HtbFeed\Feed;
 
-final class Configuration
+final class FeedMeta
 {
     private const TITLE = 'はてなブックマークの新着エントリー';
 

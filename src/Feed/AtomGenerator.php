@@ -10,16 +10,16 @@ use Laminas\Feed\Writer\Feed;
 class AtomGenerator implements FeedGeneratorInterface
 {
     /**
-     * @var Configuration
+     * @var FeedMeta
      */
-    private $config;
+    private $meta;
 
     /**
-     * @param Configuration $config
+     * @param FeedMeta $meta
      */
-    public function __construct(Configuration $config)
+    public function __construct(FeedMeta $meta)
     {
-        $this->config = $config;
+        $this->meta = $meta;
     }
 
     /**
@@ -31,9 +31,9 @@ class AtomGenerator implements FeedGeneratorInterface
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
         $feed = new Feed();
-        $feed->setTitle($this->config->title());
-        $feed->setFeedLink($this->config->atomUrl(), 'atom');
-        $feed->setLink($this->config->htmlUrl());
+        $feed->setTitle($this->meta->title());
+        $feed->setFeedLink($this->meta->atomUrl(), 'atom');
+        $feed->setLink($this->meta->htmlUrl());
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 

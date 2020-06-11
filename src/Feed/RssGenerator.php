@@ -10,16 +10,16 @@ use Laminas\Feed\Writer\Feed;
 class RssGenerator implements FeedGeneratorInterface
 {
     /**
-     * @var Configuration
+     * @var FeedMeta
      */
-    private $config;
+    private $meta;
 
     /**
-     * @param Configuration $config
+     * @param FeedMeta $meta
      */
-    public function __construct(Configuration $config)
+    public function __construct(FeedMeta $meta)
     {
-        $this->config = $config;
+        $this->meta = $meta;
     }
 
     /**
@@ -31,10 +31,10 @@ class RssGenerator implements FeedGeneratorInterface
         // http://www.futomi.com/lecture/japanese/rss20.html#hrelementsOfLtitemgt
 
         $feed = new Feed();
-        $feed->setTitle($this->config->title());
-        $feed->setFeedLink($this->config->rssUrl(), 'rss');
-        $feed->setLink($this->config->htmlUrl());
-        $feed->setDescription($this->config->title());
+        $feed->setTitle($this->meta->title());
+        $feed->setFeedLink($this->meta->rssUrl(), 'rss');
+        $feed->setLink($this->meta->htmlUrl());
+        $feed->setDescription($this->meta->title());
         // channel:pubDate (optional)
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 

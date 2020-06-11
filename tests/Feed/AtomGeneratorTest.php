@@ -21,13 +21,13 @@ class AtomGeneratorTest extends TestCase
 
     public function setUp(): void
     {
-        $config = new Configuration(
+        $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
             'http://example.com/atom?category=it&users=10',
             'http://example.com/rss?category=it&users=10'
         );
 
-        $this->generator = new AtomGenerator($config);
+        $this->generator = new AtomGenerator($meta);
     }
 
     public function testInvoke()

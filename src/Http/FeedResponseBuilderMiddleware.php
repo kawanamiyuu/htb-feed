@@ -6,7 +6,7 @@ use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
 use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Bookmark\Users;
-use Kawanamiyuu\HtbFeed\Feed\Configuration;
+use Kawanamiyuu\HtbFeed\Feed\FeedMeta;
 use Kawanamiyuu\HtbFeed\Feed\FeedGeneratorInterface;
 use Kawanamiyuu\HtbFeed\Feed\FeedType;
 use Psr\Http\Message\ResponseInterface;
@@ -74,7 +74,7 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
 
     private function createFeedGenerator(FeedType $feedType, ServerRequestInterface $request): FeedGeneratorInterface
     {
-        $config = new Configuration(
+        $meta = new FeedMeta(
             Route::HTML()->getUrl($request),
             Route::ATOM()->getUrl($request),
             Route::RSS()->getUrl($request)
@@ -82,6 +82,6 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
 
         $generator = $feedType->generator();
 
-        return new $generator($config);
+        return new $generator($meta);
     }
 }

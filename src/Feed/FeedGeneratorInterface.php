@@ -7,9 +7,9 @@ use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 interface FeedGeneratorInterface
 {
     /**
-     * @param Configuration $config
+     * @param FeedMeta $meta
      */
-    public function __construct(Configuration $config);
+    public function __construct(FeedMeta $meta);
 
     /**
      * @param Bookmarks     $bookmarks
