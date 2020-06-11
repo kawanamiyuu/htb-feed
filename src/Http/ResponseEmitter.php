@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ResponderMiddleware implements MiddlewareInterface
+class ResponseEmitter implements MiddlewareInterface
 {
     /**
      * @var EmitterInterface

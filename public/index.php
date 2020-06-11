@@ -2,9 +2,9 @@
 
 use Kawanamiyuu\HtbFeed\Application;
 use Kawanamiyuu\HtbFeed\AppModule;
-use Kawanamiyuu\HtbFeed\Http\ErrorHandlerMiddleware;
-use Kawanamiyuu\HtbFeed\Http\ResponderMiddleware;
-use Kawanamiyuu\HtbFeed\Http\FeedResponseBuilderMiddleware;
+use Kawanamiyuu\HtbFeed\Http\ErrorHandler;
+use Kawanamiyuu\HtbFeed\Http\ResponseEmitter;
+use Kawanamiyuu\HtbFeed\Http\RequestHandler;
 use Ray\Compiler\ScriptInjector;
 use Ray\Di\Bind;
 use Ray\Di\InjectorInterface;
@@ -24,7 +24,7 @@ $app = $injector->getInstance(Application::class);
 /* @var Application $app */
 
 $app->run([
-    ResponderMiddleware::class,
-    ErrorHandlerMiddleware::class,
-    FeedResponseBuilderMiddleware::class
+    ResponseEmitter::class,
+    ErrorHandler::class,
+    RequestHandler::class
 ]);

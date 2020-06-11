@@ -9,10 +9,9 @@ use Kawanamiyuu\HtbFeed\Bookmark\Users;
 use Kawanamiyuu\HtbFeed\Feed\FeedMeta;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class FeedResponseBuilderMiddleware implements MiddlewareInterface
+class RequestHandler implements RequestHandlerInterface
 {
     /**
      * @var ResponsePrototypeFactory
@@ -34,10 +33,7 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
         $this->htbClient = $htbClient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $route = Route::resolve($request);
         if ($route === null) {

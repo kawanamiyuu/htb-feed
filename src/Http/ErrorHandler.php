@@ -8,7 +8,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
-class ErrorHandlerMiddleware implements MiddlewareInterface
+class ErrorHandler implements MiddlewareInterface
 {
     /**
      * @var ResponsePrototypeFactory
