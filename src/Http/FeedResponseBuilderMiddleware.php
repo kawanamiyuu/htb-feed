@@ -60,12 +60,13 @@ class FeedResponseBuilderMiddleware implements MiddlewareInterface
                 return $bookmark->users->value() >= $users->value();
             });
 
-        $feedGenerator = $this->createFeedGenerator($route->feedType(), $request);
+        $feedType = $route->feedType();
+        $feedGenerator = $this->createFeedGenerator($feedType, $request);
         $feed = ($feedGenerator)($bookmarks);
 
         $response = $this->prototypeFactory->newInstance()
             ->withStatus(200)
-            ->withHeader('Content-Type', $feedGenerator->getContentType());
+            ->withHeader('Content-Type', $feedType->contentType());
 
         $response->getBody()->write($feed);
 

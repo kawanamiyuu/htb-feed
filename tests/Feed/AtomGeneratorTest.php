@@ -66,9 +66,4 @@ FEED;
             preg_replace('#<updated>[^<]+</updated>#', '<updated>now</updated>', trim($feed), 1)
         );
     }
-
-    public function testGetContentType()
-    {
-        $this->assertSame('application/atom+xml; charset=UTF-8', $this->generator->getContentType());
-    }
 }

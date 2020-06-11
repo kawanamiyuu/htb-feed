@@ -65,9 +65,4 @@ FEED;
 
         $this->assertSame(trim($expected), trim($feed));
     }
-
-    public function testGetContentType()
-    {
-        $this->assertSame('text/html; charset=UTF-8', $this->generator->getContentType());
-    }
 }

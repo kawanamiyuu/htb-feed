@@ -62,12 +62,4 @@ class RssGenerator implements FeedGeneratorInterface
 
         return $xml;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContentType(): string
-    {
-        return 'application/rss+xml; charset=UTF-8';
-    }
 }

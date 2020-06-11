@@ -69,9 +69,4 @@ FEED;
             preg_replace('#<pubDate>[^<]+</pubDate>#', '<pubDate>now</pubDate>', trim($feed), 1)
         );
     }
-
-    public function testGetContentType()
-    {
-        $this->assertSame('application/rss+xml; charset=UTF-8', $this->generator->getContentType());
-    }
 }

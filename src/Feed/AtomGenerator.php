@@ -61,12 +61,4 @@ class AtomGenerator implements FeedGeneratorInterface
 
         return $xml;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContentType(): string
-    {
-        return 'application/atom+xml; charset=UTF-8';
-    }
 }

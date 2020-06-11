@@ -33,12 +33,4 @@ class HtmlGenerator implements FeedGeneratorInterface
             'rssUrl' => $this->meta->rssUrl()
         ]);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContentType(): string
-    {
-        return 'text/html; charset=UTF-8';
-    }
 }

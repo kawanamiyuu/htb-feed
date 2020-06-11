@@ -17,18 +17,18 @@ final class FeedType extends AbstractEnum
     protected static function enumerate(): array
     {
         return [
-            'HTML' => ['html', HtmlGenerator::class],
-            'ATOM' => ['atom', AtomGenerator::class],
-            'RSS' => ['rss', RssGenerator::class]
+            'HTML' => [HtmlGenerator::class, 'text/html; charset=UTF-8'],
+            'ATOM' => [AtomGenerator::class, 'application/atom+xml; charset=UTF-8'],
+            'RSS' => [RssGenerator::class, 'application/rss+xml; charset=UTF-8'],
         ];
     }
 
-    public function type(): string
+    public function generator(): string
     {
         return $this->getConstantValue()[0];
     }
 
-    public function generator(): string
+    public function contentType(): string
     {
         return $this->getConstantValue()[1];
     }

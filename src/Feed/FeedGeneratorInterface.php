@@ -12,14 +12,9 @@ interface FeedGeneratorInterface
     public function __construct(FeedMeta $meta);
 
     /**
-     * @param Bookmarks     $bookmarks
+     * @param Bookmarks $bookmarks
      *
      * @return string
      */
     public function __invoke(Bookmarks $bookmarks): string;
-
-    /**
-     * @return string
-     */
-    public function getContentType(): string;
 }
