@@ -14,12 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlGeneratorTest extends TestCase
 {
-    /**
-     * @var FeedGeneratorInterface
-     */
-    private $generator;
-
-    public function setUp(): void
+    public function testInvoke()
     {
         $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
@@ -27,11 +22,6 @@ class HtmlGeneratorTest extends TestCase
             'http://example.com/rss?category=it&users=10'
         );
 
-        $this->generator = new HtmlGenerator($meta);
-    }
-
-    public function testInvoke()
-    {
         $bookmark = new Bookmark();
         $bookmark->category = Category::IT();
         $bookmark->users = Users::valueOf(10);
@@ -40,7 +30,7 @@ class HtmlGeneratorTest extends TestCase
         $bookmark->domain = 'entry.example.com';
         $bookmark->date = new DateTime('2020-06-01T12:00+09:00', new DateTimeZone('Asia/Tokyo'));
 
-        $feed = ($this->generator)(new Bookmarks([$bookmark]));
+        $feed = (new HtmlGenerator())($meta, new Bookmarks([$bookmark]));
 
         $expected = <<<FEED
 <html lang="ja">

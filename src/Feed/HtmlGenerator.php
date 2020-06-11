@@ -8,29 +8,13 @@ use function Kawanamiyuu\HtbFeed\load_html_template;
 
 class HtmlGenerator implements FeedGeneratorInterface
 {
-    /**
-     * @var FeedMeta
-     */
-    private $meta;
-
-    /**
-     * @param FeedMeta $meta
-     */
-    public function __construct(FeedMeta $meta)
-    {
-        $this->meta = $meta;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke(Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
     {
         return load_html_template([
             'bookmarks' => $bookmarks,
-            'title' => $this->meta->title(),
-            'atomUrl' => $this->meta->atomUrl(),
-            'rssUrl' => $this->meta->rssUrl()
+            'title' => $meta->title(),
+            'atomUrl' => $meta->atomUrl(),
+            'rssUrl' => $meta->rssUrl()
         ]);
     }
 }

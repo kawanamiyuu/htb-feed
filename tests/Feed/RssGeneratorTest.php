@@ -14,12 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class RssGeneratorTest extends TestCase
 {
-    /**
-     * @var FeedGeneratorInterface
-     */
-    private $generator;
-
-    public function setUp(): void
+    public function testInvoke()
     {
         $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
@@ -27,11 +22,6 @@ class RssGeneratorTest extends TestCase
             'http://example.com/rss?category=it&users=10'
         );
 
-        $this->generator = new RssGenerator($meta);
-    }
-
-    public function testInvoke()
-    {
         $bookmark = new Bookmark();
         $bookmark->category = Category::IT();
         $bookmark->users = Users::valueOf(10);
@@ -40,7 +30,7 @@ class RssGeneratorTest extends TestCase
         $bookmark->domain = 'entry.example.com';
         $bookmark->date = new DateTime('2020-06-01T12:00+09:00', new DateTimeZone('Asia/Tokyo'));
 
-        $feed = ($this->generator)(new Bookmarks([$bookmark]));
+        $feed = (new RssGenerator())($meta, new Bookmarks([$bookmark]));
 
         $expected = <<<FEED
 <?xml version="1.0" encoding="UTF-8"?>

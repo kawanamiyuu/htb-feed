@@ -9,32 +9,16 @@ use Laminas\Feed\Writer\Feed;
 
 class RssGenerator implements FeedGeneratorInterface
 {
-    /**
-     * @var FeedMeta
-     */
-    private $meta;
-
-    /**
-     * @param FeedMeta $meta
-     */
-    public function __construct(FeedMeta $meta)
-    {
-        $this->meta = $meta;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke(Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
     {
         // RSS 2.0 の仕様
         // http://www.futomi.com/lecture/japanese/rss20.html#hrelementsOfLtitemgt
 
         $feed = new Feed();
-        $feed->setTitle($this->meta->title());
-        $feed->setFeedLink($this->meta->rssUrl(), 'rss');
-        $feed->setLink($this->meta->htmlUrl());
-        $feed->setDescription($this->meta->title());
+        $feed->setTitle($meta->title());
+        $feed->setFeedLink($meta->rssUrl(), 'rss');
+        $feed->setLink($meta->htmlUrl());
+        $feed->setDescription($meta->title());
         // channel:pubDate (optional)
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 

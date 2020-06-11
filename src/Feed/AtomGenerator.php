@@ -9,31 +9,15 @@ use Laminas\Feed\Writer\Feed;
 
 class AtomGenerator implements FeedGeneratorInterface
 {
-    /**
-     * @var FeedMeta
-     */
-    private $meta;
-
-    /**
-     * @param FeedMeta $meta
-     */
-    public function __construct(FeedMeta $meta)
-    {
-        $this->meta = $meta;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke(Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
     {
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
         $feed = new Feed();
-        $feed->setTitle($this->meta->title());
-        $feed->setFeedLink($this->meta->atomUrl(), 'atom');
-        $feed->setLink($this->meta->htmlUrl());
+        $feed->setTitle($meta->title());
+        $feed->setFeedLink($meta->atomUrl(), 'atom');
+        $feed->setLink($meta->htmlUrl());
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 
