@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;

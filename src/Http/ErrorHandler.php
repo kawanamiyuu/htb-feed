@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Psr\Http\Message\ResponseInterface;
@@ -22,7 +24,7 @@ class ErrorHandler implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (Throwable $e) {
-            error_log($e);
+            error_log((string) $e);
 
             return $this->prototypeFactory->newInstance()->withStatus(500);
         }

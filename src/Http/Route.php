@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use K9u\Enum\AbstractEnum;
@@ -15,7 +17,7 @@ use Psr\Http\Message\ServerRequestInterface;
 final class Route extends AbstractEnum
 {
     /**
-     * @return array<string, array{string, string}>
+     * @return array<string, array{string, FeedType}>
      */
     protected static function enumerate(): array
     {
