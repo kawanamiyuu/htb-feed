@@ -46,21 +46,20 @@ class RequestHandler implements RequestHandlerInterface
                 return $bookmark->users->value() >= $users->value();
             });
 
-        $feedType = $route->feedType();
         $feedMeta = new FeedMeta(
             Route::HTML()->getUrl($request),
             Route::ATOM()->getUrl($request),
             Route::RSS()->getUrl($request)
         );
 
-        $feedGenerator = $feedType->generator();
-        $feed = (new $feedGenerator())($feedMeta, $bookmarks);
+        $feedGenerator = $route->feedType()->generator();
+        $feed = ($feedGenerator)($feedMeta, $bookmarks);
 
         $response = $this->prototypeFactory->newInstance()
             ->withStatus(200)
-            ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feedType->contentType()));
+            ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feed->contentType()));
 
-        $response->getBody()->write($feed);
+        $response->getBody()->write($feed->content());
 
         return $response;
     }

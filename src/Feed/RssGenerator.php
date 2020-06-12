@@ -7,16 +7,16 @@ namespace Kawanamiyuu\HtbFeed\Feed;
 use DateTime;
 use DateTimeZone;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
-use Laminas\Feed\Writer\Feed;
+use Laminas\Feed\Writer\Feed as LaminasFeed;
 
 class RssGenerator implements FeedGeneratorInterface
 {
-    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): Feed
     {
         // RSS 2.0 の仕様
         // http://www.futomi.com/lecture/japanese/rss20.html#hrelementsOfLtitemgt
 
-        $feed = new Feed();
+        $feed = new LaminasFeed();
         $feed->setTitle($meta->title());
         $feed->setFeedLink($meta->rssUrl(), 'rss');
         $feed->setLink($meta->htmlUrl());
@@ -46,6 +46,6 @@ class RssGenerator implements FeedGeneratorInterface
         //       HTML エスケープ ("&" -> "&amp;") されてしまうので "&" に戻す
         $xml = str_replace('&amp;', '&', $xml);
 
-        return $xml;
+        return new Feed($xml, 'application/rss+xml');
     }
 }

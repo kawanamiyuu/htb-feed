@@ -8,5 +8,5 @@ use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 
 interface FeedGeneratorInterface
 {
-    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string;
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): Feed;
 }

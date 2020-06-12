@@ -53,7 +53,8 @@ FEED;
 
         $this->assertSame(
             trim($expected),
-            preg_replace('#<updated>[^<]+</updated>#', '<updated>now</updated>', trim($feed), 1)
+            preg_replace('#<updated>[^<]+</updated>#', '<updated>now</updated>', trim($feed->content()), 1)
         );
+        $this->assertSame('application/atom+xml', trim($feed->contentType()));
     }
 }

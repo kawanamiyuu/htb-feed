@@ -10,13 +10,15 @@ use function Kawanamiyuu\HtbFeed\load_html_template;
 
 class HtmlGenerator implements FeedGeneratorInterface
 {
-    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): Feed
     {
-        return load_html_template([
+        $html = load_html_template([
             'bookmarks' => $bookmarks,
             'title' => $meta->title(),
             'atomUrl' => $meta->atomUrl(),
             'rssUrl' => $meta->rssUrl()
         ]);
+
+        return new Feed($html, 'text/html');
     }
 }

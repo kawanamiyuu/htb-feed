@@ -7,16 +7,16 @@ namespace Kawanamiyuu\HtbFeed\Feed;
 use DateTime;
 use DateTimeZone;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
-use Laminas\Feed\Writer\Feed;
+use Laminas\Feed\Writer\Feed as LaminasFeed;
 
 class AtomGenerator implements FeedGeneratorInterface
 {
-    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): Feed
     {
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
-        $feed = new Feed();
+        $feed = new LaminasFeed();
         $feed->setTitle($meta->title());
         $feed->setFeedLink($meta->atomUrl(), 'atom');
         $feed->setLink($meta->htmlUrl());
@@ -45,6 +45,6 @@ class AtomGenerator implements FeedGeneratorInterface
         //       HTML エスケープ ("&" -> "&amp;") されてしまうので "&" に戻す
         $xml = str_replace('&amp;', '&', $xml);
 
-        return $xml;
+        return new Feed($xml, 'application/atom+xml');
     }
 }
