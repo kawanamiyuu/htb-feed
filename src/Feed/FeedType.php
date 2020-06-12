@@ -19,9 +19,9 @@ final class FeedType extends AbstractEnum
     protected static function enumerate(): array
     {
         return [
-            'HTML' => [HtmlGenerator::class, 'text/html; charset=UTF-8'],
-            'ATOM' => [AtomGenerator::class, 'application/atom+xml; charset=UTF-8'],
-            'RSS' => [RssGenerator::class, 'application/rss+xml; charset=UTF-8'],
+            'HTML' => [HtmlGenerator::class, 'text/html'],
+            'ATOM' => [AtomGenerator::class, 'application/atom+xml'],
+            'RSS' => [RssGenerator::class, 'application/rss+xml'],
         ];
     }
 

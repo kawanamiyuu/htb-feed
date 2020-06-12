@@ -58,7 +58,7 @@ class RequestHandler implements RequestHandlerInterface
 
         $response = $this->prototypeFactory->newInstance()
             ->withStatus(200)
-            ->withHeader('Content-Type', $feedType->contentType());
+            ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feedType->contentType()));
 
         $response->getBody()->write($feed);
 
