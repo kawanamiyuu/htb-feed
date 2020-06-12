@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use DateTime;
@@ -8,11 +10,6 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class BookmarkExtractor
 {
-    /**
-     * @param string $html
-     *
-     * @return Bookmarks
-     */
     public function __invoke(string $html): Bookmarks
     {
         $timeZone = new DateTimeZone('Asia/Tokyo');

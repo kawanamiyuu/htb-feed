@@ -14,24 +14,14 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlGeneratorTest extends TestCase
 {
-    /**
-     * @var FeedGeneratorInterface
-     */
-    private $generator;
-
-    public function setUp(): void
+    public function testInvoke()
     {
-        $config = new Configuration(
+        $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
             'http://example.com/atom?category=it&users=10',
             'http://example.com/rss?category=it&users=10'
         );
 
-        $this->generator = new HtmlGenerator($config);
-    }
-
-    public function testInvoke()
-    {
         $bookmark = new Bookmark();
         $bookmark->category = Category::IT();
         $bookmark->users = Users::valueOf(10);
@@ -40,7 +30,7 @@ class HtmlGeneratorTest extends TestCase
         $bookmark->domain = 'entry.example.com';
         $bookmark->date = new DateTime('2020-06-01T12:00+09:00', new DateTimeZone('Asia/Tokyo'));
 
-        $feed = ($this->generator)(new Bookmarks([$bookmark]));
+        $feed = (new HtmlGenerator())($meta, new Bookmarks([$bookmark]));
 
         $expected = <<<FEED
 <html lang="ja">
@@ -64,10 +54,5 @@ class HtmlGeneratorTest extends TestCase
 FEED;
 
         $this->assertSame(trim($expected), trim($feed));
-    }
-
-    public function testGetContentType()
-    {
-        $this->assertSame('text/html; charset=UTF-8', $this->generator->getContentType());
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Feed;
 
 use DateTime;
@@ -9,31 +11,15 @@ use Laminas\Feed\Writer\Feed;
 
 class AtomGenerator implements FeedGeneratorInterface
 {
-    /**
-     * @var Configuration
-     */
-    private $config;
-
-    /**
-     * @param Configuration $config
-     */
-    public function __construct(Configuration $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __invoke(Bookmarks $bookmarks): string
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string
     {
         // Atom の仕様
         // http://www.futomi.com/lecture/japanese/rfc4287.html
 
         $feed = new Feed();
-        $feed->setTitle($this->config->title());
-        $feed->setFeedLink($this->config->atomUrl(), 'atom');
-        $feed->setLink($this->config->htmlUrl());
+        $feed->setTitle($meta->title());
+        $feed->setFeedLink($meta->atomUrl(), 'atom');
+        $feed->setLink($meta->htmlUrl());
         // feed:updated
         $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
 
@@ -60,13 +46,5 @@ class AtomGenerator implements FeedGeneratorInterface
         $xml = str_replace('&amp;', '&', $xml);
 
         return $xml;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getContentType(): string
-    {
-        return 'application/atom+xml; charset=UTF-8';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use function GuzzleHttp\Promise\all;
@@ -8,31 +10,16 @@ class HtbClient
 {
     private const MAX_PAGE = 10;
 
-    /**
-     * @var EntryListLoader
-     */
-    private $entryListLoader;
+    private EntryListLoader $entryListLoader;
 
-    /**
-     * @var BookmarkExtractor
-     */
-    private $bookmarkExtractor;
+    private BookmarkExtractor $bookmarkExtractor;
 
-    /**
-     * @param EntryListLoader   $entryListLoader
-     * @param BookmarkExtractor $bookmarkExtractor
-     */
     public function __construct(EntryListLoader $entryListLoader, BookmarkExtractor $bookmarkExtractor)
     {
         $this->entryListLoader = $entryListLoader;
         $this->bookmarkExtractor = $bookmarkExtractor;
     }
 
-    /**
-     * @param Category $category
-     *
-     * @return Bookmarks
-     */
     public function fetch(Category $category): Bookmarks
     {
         $loader = $this->entryListLoader;

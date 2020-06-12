@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use GuzzleHttp\ClientInterface;
@@ -8,25 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class EntryListLoader
 {
-    /**
-     * @var ClientInterface
-     */
-    private $client;
+    private ClientInterface $client;
 
-    /**
-     * @param ClientInterface $client
-     */
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
 
-    /**
-     * @param Category $category
-     * @param int      $page
-     *
-     * @return PromiseInterface
-     */
     public function __invoke(Category $category, int $page): PromiseInterface
     {
         $url = sprintf('http://b.hatena.ne.jp/entrylist/%s?page=%d', $category->value(), $page);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,21 +10,15 @@ use Relay\Relay;
 
 class Application
 {
-    /**
-     * @var InjectorInterface
-     */
-    private $injector;
+    private InjectorInterface $injector;
 
-    /**
-     * @param InjectorInterface $injector
-     */
     public function __construct(InjectorInterface $injector)
     {
         $this->injector = $injector;
     }
 
     /**
-     * @param array<string> $middlewares
+     * @param string[] $middlewares
      */
     public function run(array $middlewares): void
     {

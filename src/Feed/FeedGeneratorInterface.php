@@ -1,25 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Feed;
 
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 
 interface FeedGeneratorInterface
 {
-    /**
-     * @param Configuration $config
-     */
-    public function __construct(Configuration $config);
-
-    /**
-     * @param Bookmarks     $bookmarks
-     *
-     * @return string
-     */
-    public function __invoke(Bookmarks $bookmarks): string;
-
-    /**
-     * @return string
-     */
-    public function getContentType(): string;
+    public function __invoke(FeedMeta $meta, Bookmarks $bookmarks): string;
 }

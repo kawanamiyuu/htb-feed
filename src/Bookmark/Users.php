@@ -1,26 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use LogicException;
 
 final class Users
 {
-    /**
-     * @var int
-     */
-    private $value;
+    private int $value;
 
-    /**
-     * @param int $users
-     */
     private function __construct(int $users)
     {
         $this->value = $users;
     }
 
     /**
-     * @param mixed $users
+     * @param int|string $users
      *
      * @return Users
      */
@@ -36,9 +32,6 @@ final class Users
         throw new LogicException('"users" must be positive integer.');
     }
 
-    /**
-     * @return int
-     */
     public function value(): int
     {
         return $this->value;

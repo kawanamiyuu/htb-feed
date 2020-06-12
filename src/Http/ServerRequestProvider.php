@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kawanamiyuu\HtbFeed\Http;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,9 +10,6 @@ use Laminas\Diactoros\ServerRequestFactory;
 
 class ServerRequestProvider implements ProviderInterface
 {
-    /**
-     * @return ServerRequestInterface
-     */
     public function get(): ServerRequestInterface
     {
         return ServerRequestFactory::fromGlobals();

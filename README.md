@@ -14,13 +14,14 @@ htb-feed
 1. start server
 
     ```console
-    $ php -S localhost:8080 -t public
+    $ composer serve
     ```
+   
+1. view feed
+    * e.g.) http://localhost:8080/atom?category=it&users=100
 
-1. publish a feed temporarily using [ngrok](https://ngrok.com/)
+1. if you confirm a feed with your Feed Reader, you can temporally publish the feed by [ngrok](https://ngrok.com/) and subscribe to
 
     ```console
     $ ngrok http 8080
     ```
-
-1. subscribe to a feed by your favorite Feed Reader (e.g. Feedly)
