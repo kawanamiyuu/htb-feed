@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bookmark;
+namespace Kawanamiyuu\HtbFeed\Bookmark;
 
 use DateTime;
-use Kawanamiyuu\HtbFeed\Bookmark\BookmarkExtractor;
-use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use PHPUnit\Framework\TestCase;
 
 class BookmarkExtractorTest extends TestCase
