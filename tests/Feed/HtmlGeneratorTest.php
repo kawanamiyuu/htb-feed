@@ -53,6 +53,7 @@ class HtmlGeneratorTest extends TestCase
 </html>
 FEED;
 
-        $this->assertSame(trim($expected), trim($feed));
+        $this->assertSame(trim($expected), trim($feed->content()));
+        $this->assertSame('text/html', trim($feed->contentType()));
     }
 }
