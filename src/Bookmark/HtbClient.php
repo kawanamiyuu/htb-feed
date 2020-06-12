@@ -8,15 +8,9 @@ class HtbClient
 {
     private const MAX_PAGE = 10;
 
-    /**
-     * @var EntryListLoader
-     */
-    private $entryListLoader;
+    private EntryListLoader $entryListLoader;
 
-    /**
-     * @var BookmarkExtractor
-     */
-    private $bookmarkExtractor;
+    private BookmarkExtractor $bookmarkExtractor;
 
     /**
      * @param EntryListLoader   $entryListLoader

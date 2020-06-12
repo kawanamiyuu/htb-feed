@@ -13,15 +13,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
-    /**
-     * @var ResponsePrototypeFactory
-     */
-    private $prototypeFactory;
+    private ResponsePrototypeFactory $prototypeFactory;
 
-    /**
-     * @var HtbClient
-     */
-    private $htbClient;
+    private HtbClient $htbClient;
 
     /**
      * @param ResponsePrototypeFactory $prototypeFactory

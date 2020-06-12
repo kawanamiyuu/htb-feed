@@ -6,10 +6,7 @@ use LogicException;
 
 final class Users
 {
-    /**
-     * @var int
-     */
-    private $value;
+    private int $value;
 
     /**
      * @param int $users

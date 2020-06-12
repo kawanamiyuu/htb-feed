@@ -10,10 +10,7 @@ use Throwable;
 
 class ErrorHandler implements MiddlewareInterface
 {
-    /**
-     * @var ResponsePrototypeFactory
-     */
-    private $prototypeFactory;
+    private ResponsePrototypeFactory $prototypeFactory;
 
     /**
      * @param ResponsePrototypeFactory $prototypeFactory

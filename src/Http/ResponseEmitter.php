@@ -10,10 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class ResponseEmitter implements MiddlewareInterface
 {
-    /**
-     * @var EmitterInterface
-     */
-    private $emitter;
+    private EmitterInterface $emitter;
 
     /**
      * @param EmitterInterface $emitter

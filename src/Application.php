@@ -8,10 +8,7 @@ use Relay\Relay;
 
 class Application
 {
-    /**
-     * @var InjectorInterface
-     */
-    private $injector;
+    private InjectorInterface $injector;
 
     /**
      * @param InjectorInterface $injector

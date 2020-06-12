@@ -6,20 +6,11 @@ final class FeedMeta
 {
     private const TITLE = 'はてなブックマークの新着エントリー';
 
-    /**
-     * @var string
-     */
-    private $htmlUrl;
+    private string $htmlUrl;
 
-    /**
-     * @var string
-     */
-    private $atomUrl;
+    private string $atomUrl;
 
-    /**
-     * @var string
-     */
-    private $rssUrl;
+    private string $rssUrl;
 
     /**
      * @param string $htmlUrl

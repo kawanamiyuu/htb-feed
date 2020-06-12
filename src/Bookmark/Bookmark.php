@@ -6,21 +6,15 @@ use DateTimeInterface;
 
 final class Bookmark
 {
-    /** @var Category */
-    public $category;
+    public Category $category;
 
-    /** @var Users */
-    public $users;
+    public Users $users;
 
-    /** @var string */
-    public $title;
+    public string $title;
 
-    /** @var string */
-    public $url;
+    public string $url;
 
-    /** @var string */
-    public $domain;
+    public string $domain;
 
-    /** @var DateTimeInterface */
-    public $date;
+    public DateTimeInterface $date;
 }

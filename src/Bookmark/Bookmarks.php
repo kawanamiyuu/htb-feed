@@ -14,7 +14,7 @@ final class Bookmarks implements IteratorAggregate
     /**
      * @var Bookmark[]
      */
-    private $bookmarks;
+    private array $bookmarks;
 
     /**
      * @param Bookmark[] $bookmarks

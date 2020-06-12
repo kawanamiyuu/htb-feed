@@ -8,10 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class EntryListLoader
 {
-    /**
-     * @var ClientInterface
-     */
-    private $client;
+    private ClientInterface $client;
 
     /**
      * @param ClientInterface $client
