@@ -8,9 +8,6 @@ use Laminas\Diactoros\ServerRequestFactory;
 
 class ServerRequestProvider implements ProviderInterface
 {
-    /**
-     * @return ServerRequestInterface
-     */
     public function get(): ServerRequestInterface
     {
         return ServerRequestFactory::fromGlobals();

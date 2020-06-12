@@ -8,16 +8,13 @@ final class Users
 {
     private int $value;
 
-    /**
-     * @param int $users
-     */
     private function __construct(int $users)
     {
         $this->value = $users;
     }
 
     /**
-     * @param mixed $users
+     * @param int|string $users
      *
      * @return Users
      */
@@ -33,9 +30,6 @@ final class Users
         throw new LogicException('"users" must be positive integer.');
     }
 
-    /**
-     * @return int
-     */
     public function value(): int
     {
         return $this->value;

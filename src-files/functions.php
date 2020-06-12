@@ -3,7 +3,7 @@
 namespace Kawanamiyuu\HtbFeed;
 
 /**
- * @param array $vars
+ * @param array<string, mixed> $vars
  *
  * @return string
  */

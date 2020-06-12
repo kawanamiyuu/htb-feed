@@ -12,17 +12,11 @@ class ErrorHandler implements MiddlewareInterface
 {
     private ResponsePrototypeFactory $prototypeFactory;
 
-    /**
-     * @param ResponsePrototypeFactory $prototypeFactory
-     */
     public function __construct(ResponsePrototypeFactory $prototypeFactory)
     {
         $this->prototypeFactory = $prototypeFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {

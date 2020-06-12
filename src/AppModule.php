@@ -13,9 +13,6 @@ use Ray\Di\Scope;
 
 class AppModule extends AbstractModule
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this->bind(ServerRequestInterface::class)

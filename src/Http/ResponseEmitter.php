@@ -12,17 +12,11 @@ class ResponseEmitter implements MiddlewareInterface
 {
     private EmitterInterface $emitter;
 
-    /**
-     * @param EmitterInterface $emitter
-     */
     public function __construct(EmitterInterface $emitter)
     {
         $this->emitter = $emitter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);

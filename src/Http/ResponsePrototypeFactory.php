@@ -7,9 +7,6 @@ use Laminas\Diactoros\Response;
 
 class ResponsePrototypeFactory
 {
-    /**
-     * @return ResponseInterface
-     */
     public function newInstance(): ResponseInterface
     {
         return new Response();

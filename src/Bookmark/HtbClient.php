@@ -12,21 +12,12 @@ class HtbClient
 
     private BookmarkExtractor $bookmarkExtractor;
 
-    /**
-     * @param EntryListLoader   $entryListLoader
-     * @param BookmarkExtractor $bookmarkExtractor
-     */
     public function __construct(EntryListLoader $entryListLoader, BookmarkExtractor $bookmarkExtractor)
     {
         $this->entryListLoader = $entryListLoader;
         $this->bookmarkExtractor = $bookmarkExtractor;
     }
 
-    /**
-     * @param Category $category
-     *
-     * @return Bookmarks
-     */
     public function fetch(Category $category): Bookmarks
     {
         $loader = $this->entryListLoader;

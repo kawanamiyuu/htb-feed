@@ -24,11 +24,6 @@ final class Bookmarks implements IteratorAggregate
         $this->bookmarks = $bookmarks;
     }
 
-    /**
-     * @param callable $callback
-     *
-     * @return Bookmarks
-     */
     public function filter(callable $callback): Bookmarks
     {
         $bookmarks = array_filter($this->bookmarks, $callback);
@@ -38,11 +33,6 @@ final class Bookmarks implements IteratorAggregate
         return new self($bookmarks);
     }
 
-    /**
-     * @param callable $callback
-     *
-     * @return Bookmarks
-     */
     public function sort(callable $callback): Bookmarks
     {
         $bookmarks = $this->bookmarks;

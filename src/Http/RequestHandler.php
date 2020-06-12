@@ -17,10 +17,6 @@ class RequestHandler implements RequestHandlerInterface
 
     private HtbClient $htbClient;
 
-    /**
-     * @param ResponsePrototypeFactory $prototypeFactory
-     * @param HtbClient                $htbClient
-     */
     public function __construct(ResponsePrototypeFactory $prototypeFactory, HtbClient $htbClient)
     {
         $this->prototypeFactory = $prototypeFactory;

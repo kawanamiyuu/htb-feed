@@ -10,16 +10,13 @@ class Application
 {
     private InjectorInterface $injector;
 
-    /**
-     * @param InjectorInterface $injector
-     */
     public function __construct(InjectorInterface $injector)
     {
         $this->injector = $injector;
     }
 
     /**
-     * @param array<string> $middlewares
+     * @param string[] $middlewares
      */
     public function run(array $middlewares): void
     {
