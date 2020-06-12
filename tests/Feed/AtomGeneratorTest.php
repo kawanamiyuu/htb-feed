@@ -55,6 +55,6 @@ FEED;
             trim($expected),
             preg_replace('#<updated>[^<]+</updated>#', '<updated>now</updated>', trim($feed->content()), 1)
         );
-        $this->assertSame('application/atom+xml', trim($feed->contentType()));
+        $this->assertSame('application/atom+xml', $feed->contentType());
     }
 }

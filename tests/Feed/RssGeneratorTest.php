@@ -58,6 +58,6 @@ FEED;
             trim($expected),
             preg_replace('#<pubDate>[^<]+</pubDate>#', '<pubDate>now</pubDate>', trim($feed->content()), 1)
         );
-        $this->assertSame('application/rss+xml', trim($feed->contentType()));
+        $this->assertSame('application/rss+xml', $feed->contentType());
     }
 }
