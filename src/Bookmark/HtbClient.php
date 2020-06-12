@@ -39,7 +39,7 @@ class HtbClient
 
         return $bookmarks->sort(function (Bookmark $a, Bookmark $b) {
             // date DESC
-            return $b->date < $a->date ? -1 : 1;
+            return $b->date <=> $a->date;
         });
     }
 }
