@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -12,11 +13,11 @@ use Throwable;
 
 class ErrorHandler implements MiddlewareInterface
 {
-    private ResponsePrototypeFactory $prototypeFactory;
+    private ResponseFactoryInterface $responseFactory;
 
-    public function __construct(ResponsePrototypeFactory $prototypeFactory)
+    public function __construct(ResponseFactoryInterface $responseFactory)
     {
-        $this->prototypeFactory = $prototypeFactory;
+        $this->responseFactory = $responseFactory;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -26,7 +27,7 @@ class ErrorHandler implements MiddlewareInterface
         } catch (Throwable $e) {
             error_log((string) $e);
 
-            return $this->prototypeFactory->newInstance()->withStatus(500);
+            return $this->responseFactory->createResponse(500);
         }
     }
 }

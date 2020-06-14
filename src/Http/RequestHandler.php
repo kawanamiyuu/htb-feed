@@ -9,19 +9,20 @@ use Kawanamiyuu\HtbFeed\Bookmark\Category;
 use Kawanamiyuu\HtbFeed\Bookmark\HtbClient;
 use Kawanamiyuu\HtbFeed\Bookmark\Users;
 use Kawanamiyuu\HtbFeed\Feed\FeedMeta;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
-    private ResponsePrototypeFactory $prototypeFactory;
+    private ResponseFactoryInterface $responseFactory;
 
     private HtbClient $htbClient;
 
-    public function __construct(ResponsePrototypeFactory $prototypeFactory, HtbClient $htbClient)
+    public function __construct(ResponseFactoryInterface $responseFactory, HtbClient $htbClient)
     {
-        $this->prototypeFactory = $prototypeFactory;
+        $this->responseFactory = $responseFactory;
         $this->htbClient = $htbClient;
     }
 
@@ -29,7 +30,7 @@ class RequestHandler implements RequestHandlerInterface
     {
         $route = Route::resolve($request);
         if ($route === null) {
-            return $this->prototypeFactory->newInstance()->withStatus(404);
+            return $this->responseFactory->createResponse(404);
         }
 
         $category = isset($request->getQueryParams()['category'])
@@ -55,8 +56,7 @@ class RequestHandler implements RequestHandlerInterface
         $feedGenerator = $route->feedType()->generator();
         $feed = ($feedGenerator)($feedMeta, $bookmarks);
 
-        $response = $this->prototypeFactory->newInstance()
-            ->withStatus(200)
+        $response = $this->responseFactory->createResponse()
             ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feed->contentType()));
 
         $response->getBody()->write($feed->content());
