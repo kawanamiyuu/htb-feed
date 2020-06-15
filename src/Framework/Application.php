@@ -35,9 +35,7 @@ class Application implements ApplicationInterface
      */
     public function __invoke(array $handlers): void
     {
-        $requestHandler = new Relay($handlers, function ($handler) {
-            return ($this->middlewareResolver)($handler);
-        });
+        $requestHandler = new Relay($handlers, $this->middlewareResolver);
 
         try {
             $response = $requestHandler->handle($this->request);
