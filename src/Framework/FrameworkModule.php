@@ -9,7 +9,6 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
-use Relay\RelayBuilder as RequestHandlerFactory;
 
 /**
  * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
@@ -24,8 +23,8 @@ class FrameworkModule extends AbstractModule
         $this->bind(ResponseFactoryInterface::class)
             ->to(ResponseFactory::class)->in(Scope::SINGLETON);
 
-        $this->bind(RequestHandlerFactory::class)
-            ->toProvider(RequestHandlerFactoryProvider::class)->in(Scope::SINGLETON);
+        $this->bind(RequestHandlerFactoryInterface::class)
+            ->to(RequestHandlerFactory::class)->in(Scope::SINGLETON);
 
         $this->bind(ExceptionHandlerInterface::class)
             ->to(ExceptionHandler::class)->in(Scope::SINGLETON);
