@@ -13,9 +13,6 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-#         # NOTE: phpmd requires ext-xml
-#         # NOTE: phpunit requires ext-dom and ext-mbstring
-#         extensions: xml, dom, mbstring
     - name: PHP version
       run: php -v
     - name: Composer version
