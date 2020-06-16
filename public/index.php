@@ -3,6 +3,7 @@
 use Kawanamiyuu\HtbFeed\AppModule;
 use Kawanamiyuu\HtbFeed\Framework\ApplicationInterface;
 use Kawanamiyuu\HtbFeed\Http\RequestHandler;
+use Kawanamiyuu\HtbFeed\Http\Router;
 use Ray\Compiler\ScriptInjector;
 use Ray\Di\Bind;
 use Ray\Di\InjectorInterface;
@@ -22,5 +23,6 @@ $app = $injector->getInstance(ApplicationInterface::class);
 /* @var ApplicationInterface $app */
 
 $app([
+    Router::class,
     RequestHandler::class
 ]);

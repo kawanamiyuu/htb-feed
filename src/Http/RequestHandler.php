@@ -28,10 +28,8 @@ class RequestHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $route = Route::resolve($request);
-        if ($route === null) {
-            return $this->responseFactory->createResponse(404);
-        }
+        $route = $request->getAttribute(Route::class);
+        assert($route instanceof Route);
 
         $category = isset($request->getQueryParams()['category'])
             ? Category::valueOf($request->getQueryParams()['category']) // TODO: validation
