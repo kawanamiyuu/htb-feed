@@ -30,7 +30,7 @@ class FrameworkModule extends AbstractModule
             ->to(ExceptionHandler::class)->in(Scope::SINGLETON);
 
         $this->bind(ResponseEmitterInterface::class)
-            ->toProvider(ResponseEmitterProvider::class)->in(Scope::SINGLETON);
+            ->to(ResponseEmitter::class)->in(Scope::SINGLETON);
 
         $this->bind(ApplicationInterface::class)
             ->to(Application::class)->in(Scope::SINGLETON);
