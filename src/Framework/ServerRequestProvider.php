@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kawanamiyuu\HtbFeed\Http;
+namespace Kawanamiyuu\HtbFeed\Framework;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Ray\Di\ProviderInterface;
