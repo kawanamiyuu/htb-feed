@@ -5,27 +5,27 @@ declare(strict_types=1);
 namespace Kawanamiyuu\HtbFeed\Framework;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Relay\Relay;
+use Relay\RelayBuilder as RequestHandlerFactory;
 use Throwable;
 
 class Application implements ApplicationInterface
 {
-    private ServerRequestInterface $request;
+    private RequestHandlerFactory $factory;
 
-    private MiddlewareResolverInterface $middlewareResolver;
+    private ServerRequestInterface $request;
 
     private ExceptionHandlerInterface $exceptionHandler;
 
     private ResponseEmitterInterface $responseEmitter;
 
     public function __construct(
+        RequestHandlerFactory $factory,
         ServerRequestInterface $request,
-        MiddlewareResolverInterface $middlewareResolver,
         ExceptionHandlerInterface $exceptionHandler,
         ResponseEmitterInterface $responseEmitter
     ) {
+        $this->factory = $factory;
         $this->request = $request;
-        $this->middlewareResolver = $middlewareResolver;
         $this->exceptionHandler = $exceptionHandler;
         $this->responseEmitter = $responseEmitter;
     }
@@ -35,7 +35,7 @@ class Application implements ApplicationInterface
      */
     public function __invoke(array $handlers): void
     {
-        $requestHandler = new Relay($handlers, $this->middlewareResolver);
+        $requestHandler = $this->factory->newInstance($handlers);
 
         try {
             $response = $requestHandler->handle($this->request);
