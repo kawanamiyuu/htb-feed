@@ -21,14 +21,19 @@ class FrameworkModule extends AbstractModule
         $this->bind(ServerRequestInterface::class)
             ->toProvider(ServerRequestProvider::class)->in(Scope::SINGLETON);
 
-        $this->bind(ResponseFactoryInterface::class)->to(ResponseFactory::class);
+        $this->bind(ResponseFactoryInterface::class)
+            ->to(ResponseFactory::class)->in(Scope::SINGLETON);
 
-        $this->bind(RequestHandlerFactory::class)->toProvider(RequestHandlerFactoryProvider::class);
+        $this->bind(RequestHandlerFactory::class)
+            ->toProvider(RequestHandlerFactoryProvider::class)->in(Scope::SINGLETON);
 
-        $this->bind(ExceptionHandlerInterface::class)->to(ExceptionHandler::class);
+        $this->bind(ExceptionHandlerInterface::class)
+            ->to(ExceptionHandler::class)->in(Scope::SINGLETON);
 
-        $this->bind(ResponseEmitterInterface::class)->toProvider(ResponseEmitterProvider::class);
+        $this->bind(ResponseEmitterInterface::class)
+            ->toProvider(ResponseEmitterProvider::class)->in(Scope::SINGLETON);
 
-        $this->bind(ApplicationInterface::class)->to(Application::class)->in(Scope::SINGLETON);
+        $this->bind(ApplicationInterface::class)
+            ->to(Application::class)->in(Scope::SINGLETON);
     }
 }

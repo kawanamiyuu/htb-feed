@@ -16,6 +16,7 @@ class AppModule extends AbstractModule
     {
         $this->install(new FrameworkModule());
 
-        $this->bind(ClientInterface::class)->to(Client::class);
+        $this->bind(ClientInterface::class)
+            ->to(Client::class)->in(Scope::SINGLETON);
     }
 }
