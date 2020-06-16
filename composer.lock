@@ -76,6 +76,88 @@
             "time": "2020-05-25T17:24:27+00:00"
         },
         {
+            "name": "doctrine/cache",
+            "version": "1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1 || ^8.0"
+            },
+            "conflict": {
+                "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "doctrine/coding-standard": "^6.0",
+                "mongodb/mongodb": "^1.1",
+                "phpunit/phpunit": "^7.0",
+                "predis/predis": "~1.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
+            "homepage": "https://www.doctrine-project.org/projects/cache.html",
+            "keywords": [
+                "abstraction",
+                "apcu",
+                "cache",
+                "caching",
+                "couchdb",
+                "memcached",
+                "php",
+                "redis",
+                "xcache"
+            ],
+            "time": "2020-05-27T16:24:54+00:00"
+        },
+        {
             "name": "doctrine/lexer",
             "version": "1.2.1",
             "source": {
@@ -371,6 +453,56 @@
                 "enumeration"
             ],
             "time": "2020-06-09T03:08:50+00:00"
+        },
+        {
+            "name": "koriym/printo",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koriym/print_o.git",
+                "reference": "d969e4cc738a376d479c2125e7d62be88cfa9dbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koriym/print_o/zipball/d969e4cc738a376d479c2125e7d62be88cfa9dbe",
+                "reference": "d969e4cc738a376d479c2125e7d62be88cfa9dbe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Koriym\\Printo\\": "src/"
+                },
+                "files": [
+                    "src/print_o.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Akihito Koriyama",
+                    "email": "akihito.koriyama@gmail.com",
+                    "homepage": "https://github.com/koriym"
+                }
+            ],
+            "description": "An object graph visualizer.",
+            "homepage": "https://github.com/koriym/print_o",
+            "keywords": [
+                "debug",
+                "var_dump"
+            ],
+            "time": "2015-02-13T19:04:21+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -1090,26 +1222,32 @@
         },
         {
             "name": "ray/compiler",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ray-di/Ray.Compiler.git",
-                "reference": "b4e8231e42f32934ea0bec1a90ef957a9e830710"
+                "reference": "e8204d14de5be14161f47d44a228b78cb46643e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ray-di/Ray.Compiler/zipball/b4e8231e42f32934ea0bec1a90ef957a9e830710",
-                "reference": "b4e8231e42f32934ea0bec1a90ef957a9e830710",
+                "url": "https://api.github.com/repos/ray-di/Ray.Compiler/zipball/e8204d14de5be14161f47d44a228b78cb46643e4",
+                "reference": "e8204d14de5be14161f47d44a228b78cb46643e4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "doctrine/annotations": "^1.10",
+                "doctrine/cache": "^1.10",
+                "koriym/printo": "^1.0",
+                "nikic/php-parser": "^4.5",
+                "php": ">=7.2.0",
+                "ray/aop": "^2.9",
+                "ray/di": "^2.10.3 || 2.x-dev"
+            },
+            "replace": {
+                "ray/compiler": "self.version"
             },
             "require-dev": {
-                "koriym/printo": "^1.0",
-                "phpunit/phpunit": "^7.5",
-                "ray/aop": "^2.9.8",
-                "ray/di": "2.x-dev"
+                "phpunit/phpunit": "^7.5"
             },
             "type": "library",
             "autoload": {
@@ -1133,26 +1271,27 @@
                 "compiler",
                 "di"
             ],
-            "time": "2020-06-06T07:35:36+00:00"
+            "time": "2020-06-14T08:50:00+00:00"
         },
         {
             "name": "ray/di",
-            "version": "2.10.2",
+            "version": "2.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ray-di/Ray.Di.git",
-                "reference": "1134d1e40c3d339020af1e7c666d9024dd723005"
+                "reference": "34906ed26d00076f2ce413d3299f24c4502c440a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ray-di/Ray.Di/zipball/1134d1e40c3d339020af1e7c666d9024dd723005",
-                "reference": "1134d1e40c3d339020af1e7c666d9024dd723005",
+                "url": "https://api.github.com/repos/ray-di/Ray.Di/zipball/34906ed26d00076f2ce413d3299f24c4502c440a",
+                "reference": "34906ed26d00076f2ce413d3299f24c4502c440a",
                 "shasum": ""
             },
             "require": {
+                "doctrine/annotations": "^1.10",
                 "php": ">=7.2.0",
                 "ray/aop": "^2.9.8",
-                "ray/compiler": "1.x-dev|^1.4.1"
+                "ray/compiler": "1.x-dev || ^1.4.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5"
@@ -1181,7 +1320,7 @@
                 "aop",
                 "di"
             ],
-            "time": "2020-06-04T13:26:16+00:00"
+            "time": "2020-06-13T05:17:09+00:00"
         },
         {
             "name": "relay/relay",
