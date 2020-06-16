@@ -7,7 +7,7 @@ namespace Kawanamiyuu\HtbFeed\Framework;
 interface ApplicationInterface
 {
     /**
-     * @param string[] $handlers
+     * @param array<class-string> $handlers FQCNs of "PSR-15: HTTP Server Request Handlers" implementation
      */
     public function __invoke(array $handlers): void;
 }

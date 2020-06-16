@@ -33,7 +33,7 @@ class Application implements ApplicationInterface
     }
 
     /**
-     * @param string[] $handlers
+     * {@inheritDoc}
      */
     public function __invoke(array $handlers): void
     {

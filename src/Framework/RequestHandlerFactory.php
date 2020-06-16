@@ -18,9 +18,7 @@ class RequestHandlerFactory implements RequestHandlerFactoryInterface
     }
 
     /**
-     * @param string[] $handlers
-     *
-     * @return RequestHandlerInterface
+     * {@inheritDoc}
      */
     public function __invoke(array $handlers): RequestHandlerInterface
     {

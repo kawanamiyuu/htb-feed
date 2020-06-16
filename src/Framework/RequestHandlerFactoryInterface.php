@@ -9,7 +9,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 interface RequestHandlerFactoryInterface
 {
     /**
-     * @param string[] $handlers
+     * @param array<class-string> $handlers FQCNs of "PSR-15: HTTP Server Request Handlers" implementation
      *
      * @return RequestHandlerInterface
      */
