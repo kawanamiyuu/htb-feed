@@ -12,8 +12,6 @@ use Throwable;
  */
 class Application implements ApplicationInterface
 {
-    private ServerRequestInterface $request;
-
     private RequestHandlerFactoryInterface $requestHandlerFactory;
 
     private ExceptionHandlerInterface $exceptionHandler;
@@ -21,28 +19,23 @@ class Application implements ApplicationInterface
     private ResponseEmitterInterface $responseEmitter;
 
     public function __construct(
-        ServerRequestInterface $request,
         RequestHandlerFactoryInterface $requestHandlerFactory,
         ExceptionHandlerInterface $exceptionHandler,
         ResponseEmitterInterface $responseEmitter
     ) {
-        $this->request = $request;
         $this->requestHandlerFactory = $requestHandlerFactory;
         $this->exceptionHandler = $exceptionHandler;
         $this->responseEmitter = $responseEmitter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function __invoke(array $handlers): void
+    public function __invoke(ServerRequestInterface $request, array $handlers): void
     {
         $requestHandler = ($this->requestHandlerFactory)($handlers);
 
         try {
-            $response = $requestHandler->handle($this->request);
+            $response = $requestHandler->handle($request);
         } catch (Throwable $th) {
-            $response = ($this->exceptionHandler)($th);
+            $response = ($this->exceptionHandler)($th, $request);
         }
 
         ($this->responseEmitter)($response);

@@ -4,6 +4,7 @@ use Kawanamiyuu\HtbFeed\AppModule;
 use Kawanamiyuu\HtbFeed\Framework\ApplicationInterface;
 use Kawanamiyuu\HtbFeed\Http\RequestHandler;
 use Kawanamiyuu\HtbFeed\Http\Router;
+use Laminas\Diactoros\ServerRequestFactory;
 use Ray\Compiler\ScriptInjector;
 use Ray\Di\Bind;
 use Ray\Di\InjectorInterface;
@@ -22,7 +23,9 @@ $injector = new ScriptInjector(ROOT_DIR . '/var/tmp', function () use (&$injecto
 $app = $injector->getInstance(ApplicationInterface::class);
 /* @var ApplicationInterface $app */
 
-$app([
+$request = ServerRequestFactory::fromGlobals();
+
+$app($request, [
     Router::class,
     RequestHandler::class
 ]);
