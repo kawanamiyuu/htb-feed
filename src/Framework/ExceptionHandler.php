@@ -6,6 +6,7 @@ namespace Kawanamiyuu\HtbFeed\Framework;
 
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 
 class ExceptionHandler implements ExceptionHandlerInterface
@@ -17,8 +18,10 @@ class ExceptionHandler implements ExceptionHandlerInterface
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Throwable $throwable): ResponseInterface
+    public function __invoke(Throwable $throwable, ServerRequestInterface $request): ResponseInterface
     {
+        unset($request); // unused
+
         error_log((string) $throwable);
 
         return $this->responseFactory->createResponse(505);
