@@ -2,8 +2,6 @@
 
 use Kawanamiyuu\HtbFeed\AppModule;
 use Kawanamiyuu\HtbFeed\Framework\ApplicationInterface;
-use Kawanamiyuu\HtbFeed\Http\RequestHandler;
-use Kawanamiyuu\HtbFeed\Http\Router;
 use Laminas\Diactoros\ServerRequestFactory;
 use Ray\Compiler\ScriptInjector;
 use Ray\Di\Bind;
@@ -25,7 +23,4 @@ $app = $injector->getInstance(ApplicationInterface::class);
 
 $request = ServerRequestFactory::fromGlobals();
 
-$app($request, [
-    Router::class,
-    RequestHandler::class
-]);
+$app($request);

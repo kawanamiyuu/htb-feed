@@ -7,6 +7,8 @@ namespace Kawanamiyuu\HtbFeed;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Kawanamiyuu\HtbFeed\Framework\FrameworkModule;
+use Kawanamiyuu\HtbFeed\Http\RequestHandler;
+use Kawanamiyuu\HtbFeed\Http\Router;
 use Ray\Di\AbstractModule;
 use Ray\Di\Scope;
 
@@ -14,7 +16,12 @@ class AppModule extends AbstractModule
 {
     protected function configure(): void
     {
-        $this->install(new FrameworkModule());
+        $middlewares = [
+            Router::class,
+            RequestHandler::class
+        ];
+
+        $this->install(new FrameworkModule($middlewares));
 
         $this->bind(ClientInterface::class)
             ->to(Client::class)->in(Scope::SINGLETON);

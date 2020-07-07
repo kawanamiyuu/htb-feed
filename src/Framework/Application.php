@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kawanamiyuu\HtbFeed\Framework;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
 /**
@@ -12,28 +13,31 @@ use Throwable;
  */
 class Application implements ApplicationInterface
 {
-    private RequestHandlerFactoryInterface $requestHandlerFactory;
+    private RequestHandlerInterface $requestHandler;
 
     private ExceptionHandlerInterface $exceptionHandler;
 
     private ResponseEmitterInterface $responseEmitter;
 
+    /**
+     * @param RequestHandlerInterface   $requestHandler
+     * @param ExceptionHandlerInterface $exceptionHandler
+     * @param ResponseEmitterInterface  $responseEmitter
+     */
     public function __construct(
-        RequestHandlerFactoryInterface $requestHandlerFactory,
+        RequestHandlerInterface $requestHandler,
         ExceptionHandlerInterface $exceptionHandler,
         ResponseEmitterInterface $responseEmitter
     ) {
-        $this->requestHandlerFactory = $requestHandlerFactory;
+        $this->requestHandler = $requestHandler;
         $this->exceptionHandler = $exceptionHandler;
         $this->responseEmitter = $responseEmitter;
     }
 
-    public function __invoke(ServerRequestInterface $request, array $handlers): void
+    public function __invoke(ServerRequestInterface $request): void
     {
-        $requestHandler = ($this->requestHandlerFactory)($handlers);
-
         try {
-            $response = $requestHandler->handle($request);
+            $response = $this->requestHandler->handle($request);
         } catch (Throwable $th) {
             $response = ($this->exceptionHandler)($th, $request);
         }

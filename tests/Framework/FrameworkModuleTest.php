@@ -11,7 +11,11 @@ class FrameworkModuleTest extends TestCase
 {
     public function testCompile(): void
     {
-        $injector = new Injector(new FrameworkModule());
+        $injector = new Injector(new FrameworkModule([
+            FakeMiddleware::class,
+            FakeRequestHandler::class
+        ]));
+
         $instance = $injector->getInstance(ApplicationInterface::class);
 
         $this->assertInstanceOf(ApplicationInterface::class, $instance);
