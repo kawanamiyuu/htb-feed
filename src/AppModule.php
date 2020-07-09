@@ -6,7 +6,7 @@ namespace Kawanamiyuu\HtbFeed;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Kawanamiyuu\HtbFeed\Framework\FrameworkModule;
+use K9u\Framework\FrameworkModule;
 use Kawanamiyuu\HtbFeed\Http\RequestHandler;
 use Kawanamiyuu\HtbFeed\Http\Router;
 use Ray\Di\AbstractModule;
