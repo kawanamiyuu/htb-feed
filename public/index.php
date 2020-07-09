@@ -1,7 +1,7 @@
 <?php
 
+use K9u\Framework\ApplicationInterface;
 use Kawanamiyuu\HtbFeed\AppModule;
-use Kawanamiyuu\HtbFeed\Framework\ApplicationInterface;
 use Laminas\Diactoros\ServerRequestFactory;
 use Ray\Compiler\ScriptInjector;
 use Ray\Di\Bind;
@@ -12,7 +12,7 @@ define('ROOT_DIR', dirname(__DIR__));
 require ROOT_DIR . '/bootstrap/bootstrap.php';
 require ROOT_DIR . '/vendor/autoload.php';
 
-$injector = new ScriptInjector(ROOT_DIR . '/var/tmp', function () use (&$injector) {
+$injector = new ScriptInjector(ROOT_DIR . '/build/scripts', function () use (&$injector) {
     $module = new AppModule();
     (new Bind($module->getContainer(), InjectorInterface::class))->toInstance($injector);
     return $module;
