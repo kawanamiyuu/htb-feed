@@ -10,13 +10,18 @@ use Ray\Di\Exception\Unbound;
 
 class AppModuleTest extends TestCase
 {
+    public function setUp(): void
+    {
+        array_map('unlink', glob(dirname(__DIR__) . '/build/tests/*'));
+    }
+
     public function testCompile(): void
     {
         $compiler = new DiCompiler(new AppModule(), dirname(__DIR__) . '/build/tests');
 
         try {
             $compiler->compile();
-            $compiler->dumpGraph();
+//            $compiler->dumpGraph();
         } catch (Unbound $e) {
             $this->fail((string) $e);
         }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use K9u\Framework\ApplicationInterface;
 use K9u\Framework\CachedInjectorFactory;
 use Kawanamiyuu\HtbFeed\AppModule;
 use Laminas\Diactoros\ServerRequestFactory;
 
-define('ROOT_DIR', dirname(__DIR__));
+const ROOT_DIR = __DIR__ . '/..';
 
 require ROOT_DIR . '/bootstrap/bootstrap.php';
 require ROOT_DIR . '/vendor/autoload.php';

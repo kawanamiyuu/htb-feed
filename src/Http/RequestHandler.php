@@ -12,17 +12,24 @@ use Kawanamiyuu\HtbFeed\Feed\FeedMeta;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
     private ResponseFactoryInterface $responseFactory;
 
+    private StreamFactoryInterface $streamFactory;
+
     private HtbClient $htbClient;
 
-    public function __construct(ResponseFactoryInterface $responseFactory, HtbClient $htbClient)
-    {
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        StreamFactoryInterface $streamFactory,
+        HtbClient $htbClient
+    ) {
         $this->responseFactory = $responseFactory;
+        $this->streamFactory = $streamFactory;
         $this->htbClient = $htbClient;
     }
 
@@ -54,11 +61,8 @@ class RequestHandler implements RequestHandlerInterface
         $feedGenerator = $route->feedType()->generator();
         $feed = ($feedGenerator)($feedMeta, $bookmarks);
 
-        $response = $this->responseFactory->createResponse()
-            ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feed->contentType()));
-
-        $response->getBody()->write($feed->content());
-
-        return $response;
+        return $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', sprintf('%s; charset=UTF-8', $feed->contentType()))
+            ->withBody($this->streamFactory->createStream($feed->content()));
     }
 }

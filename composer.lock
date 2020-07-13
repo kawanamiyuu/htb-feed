@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78a09b36501cd8d15d6341cc9234cf95",
+    "content-hash": "990d58c337571885fcb822b6437ec2ce",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -470,16 +470,16 @@
         },
         {
             "name": "k9u/framework",
-            "version": "0.3.0",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kawanamiyuu/K9u.Framework.git",
-                "reference": "13526f56dce8d057734972fa59d1f4b0b5cdbf28"
+                "reference": "4a773ed83cff1d8f0b02bfff8948dd333cdfd96b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kawanamiyuu/K9u.Framework/zipball/13526f56dce8d057734972fa59d1f4b0b5cdbf28",
-                "reference": "13526f56dce8d057734972fa59d1f4b0b5cdbf28",
+                "url": "https://api.github.com/repos/kawanamiyuu/K9u.Framework/zipball/4a773ed83cff1d8f0b02bfff8948dd333cdfd96b",
+                "reference": "4a773ed83cff1d8f0b02bfff8948dd333cdfd96b",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +521,7 @@
                 "psr-15",
                 "psr-7"
             ],
-            "time": "2020-07-10T12:45:22+00:00"
+            "time": "2020-07-13T15:08:26+00:00"
         },
         {
             "name": "koriym/printo",
