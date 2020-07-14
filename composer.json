@@ -13,7 +13,7 @@
         "php": "^7.4",
         "guzzlehttp/guzzle": "^7.0",
         "k9u/enum": "^2.0",
-        "k9u/framework": "^0.5",
+        "k9u/framework": "^0.7",
         "laminas/laminas-diactoros": "^2.3",
         "laminas/laminas-feed": "^2.12",
         "symfony/css-selector": "^5.1",
