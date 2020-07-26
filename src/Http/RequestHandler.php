@@ -37,7 +37,7 @@ class RequestHandler implements RequestHandlerInterface
     }
 
     /**
-     * @GetMapping("/{format<(html|rss|atom)?>}")
+     * @GetMapping("/{feedType<(html|rss|atom)?>}")
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -58,13 +58,13 @@ class RequestHandler implements RequestHandlerInterface
                 return $bookmark->users->value() >= $users->value();
             });
 
-        $feedType = FeedType::formatOf($pathParams['format'] ? $pathParams['format'] : 'html');
+        $feedType = FeedType::valueOf($pathParams['feedType'] ? $pathParams['feedType'] : 'html');
         $feedGenerator = $feedType->generator();
 
         $feedMeta = new FeedMeta(
-            (string) $request->getUri()->withPath(FeedType::HTML()->format()),
-            (string) $request->getUri()->withPath(FeedType::ATOM()->format()),
-            (string) $request->getUri()->withPath(FeedType::RSS()->format())
+            (string) $request->getUri()->withPath(FeedType::HTML()->value()),
+            (string) $request->getUri()->withPath(FeedType::ATOM()->value()),
+            (string) $request->getUri()->withPath(FeedType::RSS()->value())
         );
 
         $feed = $feedGenerator($feedMeta, $bookmarks);

@@ -26,7 +26,7 @@ final class FeedType extends AbstractEnum
         ];
     }
 
-    public function format(): string
+    public function value(): string
     {
         return $this->getConstantValue()[0];
     }
@@ -37,14 +37,14 @@ final class FeedType extends AbstractEnum
         return new $feedGenerator();
     }
 
-    public static function formatOf(string $format): FeedType
+    public static function valueOf(string $value): FeedType
     {
         foreach (self::constants() as $constant) {
-            if ($constant->format() === $format) {
+            if ($constant->value() === $value) {
                 return $constant;
             }
         }
 
-        throw new LogicException("unknown format: {$format}");
+        throw new LogicException("unknown feed type: {$value}");
     }
 }
