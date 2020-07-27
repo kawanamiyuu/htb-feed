@@ -19,7 +19,8 @@ class RssGeneratorTest extends TestCase
         $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
             'http://example.com/atom?category=it&users=10',
-            'http://example.com/rss?category=it&users=10'
+            'http://example.com/rss?category=it&users=10',
+            new DateTime('2020-06-02T09:00:00+09:00', new DateTimeZone('Asia/Tokyo'))
         );
 
         $bookmark = new Bookmark();
@@ -38,7 +39,7 @@ class RssGeneratorTest extends TestCase
   <channel>
     <title>はてなブックマークの新着エントリー</title>
     <description>はてなブックマークの新着エントリー</description>
-    <pubDate>now</pubDate>
+    <pubDate>Tue, 02 Jun 2020 09:00:00 +0900</pubDate>
     <generator>Laminas_Feed_Writer 2 (https://getlaminas.org)</generator>
     <link>http://example.com?category=it&users=10</link>
     <atom:link rel="self" type="application/rss+xml" href="http://example.com/rss?category=it&users=10"/>
@@ -54,10 +55,7 @@ class RssGeneratorTest extends TestCase
 </rss>
 FEED;
 
-        $this->assertSame(
-            trim($expected),
-            preg_replace('#<pubDate>[^<]+</pubDate>#', '<pubDate>now</pubDate>', trim($feed->content()), 1)
-        );
+        $this->assertSame(trim($expected), trim($feed->content()));
         $this->assertSame('application/rss+xml', $feed->contentType());
     }
 }

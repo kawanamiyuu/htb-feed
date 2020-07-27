@@ -19,7 +19,8 @@ class AtomGeneratorTest extends TestCase
         $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
             'http://example.com/atom?category=it&users=10',
-            'http://example.com/rss?category=it&users=10'
+            'http://example.com/rss?category=it&users=10',
+            new DateTime('2020-06-02T09:00:00+09:00', new DateTimeZone('Asia/Tokyo'))
         );
 
         $bookmark = new Bookmark();
@@ -36,7 +37,7 @@ class AtomGeneratorTest extends TestCase
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">はてなブックマークの新着エントリー</title>
-  <updated>now</updated>
+  <updated>2020-06-02T09:00:00+09:00</updated>
   <generator uri="https://getlaminas.org" version="2">Laminas_Feed_Writer</generator>
   <link rel="alternate" type="text/html" href="http://example.com?category=it&users=10"/>
   <link rel="self" type="application/atom+xml" href="http://example.com/atom?category=it&users=10"/>
@@ -51,10 +52,7 @@ class AtomGeneratorTest extends TestCase
 </feed>
 FEED;
 
-        $this->assertSame(
-            trim($expected),
-            preg_replace('#<updated>[^<]+</updated>#', '<updated>now</updated>', trim($feed->content()), 1)
-        );
+        $this->assertSame(trim($expected), trim($feed->content()));
         $this->assertSame('application/atom+xml', $feed->contentType());
     }
 }

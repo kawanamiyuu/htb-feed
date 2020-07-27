@@ -19,7 +19,8 @@ class HtmlGeneratorTest extends TestCase
         $meta = new FeedMeta(
             'http://example.com?category=it&users=10',
             'http://example.com/atom?category=it&users=10',
-            'http://example.com/rss?category=it&users=10'
+            'http://example.com/rss?category=it&users=10',
+            new DateTime('2020-06-02T09:00:00+09:00', new DateTimeZone('Asia/Tokyo'))
         );
 
         $bookmark = new Bookmark();
