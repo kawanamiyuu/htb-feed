@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Kawanamiyuu\HtbFeed\Http;
 
+use DateTime;
+use DateTimeZone;
 use K9u\RequestMapper\Annotation\GetMapping;
 use K9u\RequestMapper\PathParams;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmark;
@@ -18,6 +20,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+/**
+ * @SuppressWarnings("PMD.CouplingBetweenObjects") // FIXME
+ */
 class RequestHandler implements RequestHandlerInterface
 {
     private ResponseFactoryInterface $responseFactory;
@@ -58,14 +63,15 @@ class RequestHandler implements RequestHandlerInterface
                 return $bookmark->users->value() >= $users->value();
             });
 
-        $feedType = FeedType::valueOf($pathParams['feedType'] ? $pathParams['feedType'] : 'html');
-        $feedGenerator = $feedType->generator();
-
         $feedMeta = new FeedMeta(
+            new DateTime('now', new DateTimeZone('Asia/Tokyo')),
             (string) $request->getUri()->withPath(FeedType::HTML()->value()),
             (string) $request->getUri()->withPath(FeedType::ATOM()->value()),
             (string) $request->getUri()->withPath(FeedType::RSS()->value())
         );
+
+        $feedType = FeedType::valueOf($pathParams['feedType'] ? $pathParams['feedType'] : 'html');
+        $feedGenerator = $feedType->generator();
 
         $feed = $feedGenerator($feedMeta, $bookmarks);
 

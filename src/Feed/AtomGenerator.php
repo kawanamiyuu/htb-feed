@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Kawanamiyuu\HtbFeed\Feed;
 
-use DateTime;
-use DateTimeZone;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 use Laminas\Feed\Writer\Feed as LaminasFeed;
 
@@ -21,7 +19,7 @@ class AtomGenerator implements FeedGeneratorInterface
         $feed->setFeedLink($meta->atomUrl(), 'atom');
         $feed->setLink($meta->htmlUrl());
         // feed:updated
-        $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
+        $feed->setDateModified($meta->publishedAt());
 
         foreach ($bookmarks as $bookmark) {
             $entry = $feed->createEntry();

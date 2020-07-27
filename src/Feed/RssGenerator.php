@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Kawanamiyuu\HtbFeed\Feed;
 
-use DateTime;
-use DateTimeZone;
 use Kawanamiyuu\HtbFeed\Bookmark\Bookmarks;
 use Laminas\Feed\Writer\Feed as LaminasFeed;
 
@@ -22,7 +20,7 @@ class RssGenerator implements FeedGeneratorInterface
         $feed->setLink($meta->htmlUrl());
         $feed->setDescription($meta->title());
         // channel:pubDate (optional)
-        $feed->setDateModified(new DateTime('now', new DateTimeZone('Asia/Tokyo')));
+        $feed->setDateModified($meta->publishedAt());
 
         foreach ($bookmarks as $bookmark) {
             $entry = $feed->createEntry();
