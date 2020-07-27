@@ -64,10 +64,10 @@ class RequestHandler implements RequestHandlerInterface
             });
 
         $feedMeta = new FeedMeta(
+            new DateTime('now', new DateTimeZone('Asia/Tokyo')),
             (string) $request->getUri()->withPath(FeedType::HTML()->value()),
             (string) $request->getUri()->withPath(FeedType::ATOM()->value()),
-            (string) $request->getUri()->withPath(FeedType::RSS()->value()),
-            new DateTime('now', new DateTimeZone('Asia/Tokyo'))
+            (string) $request->getUri()->withPath(FeedType::RSS()->value())
         );
 
         $feedType = FeedType::valueOf($pathParams['feedType'] ? $pathParams['feedType'] : 'html');
