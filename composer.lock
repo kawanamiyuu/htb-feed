@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "572e8ec3a5afe0e7bb420b1b7c60261d",
+    "content-hash": "4eda61f7e95bb90d2b339bf37023c272",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1829,7 +1829,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v5.1.8",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
