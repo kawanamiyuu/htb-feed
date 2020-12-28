@@ -469,23 +469,23 @@
         },
         {
             "name": "k9u/enum",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kawanamiyuu/K9u.Enum.git",
-                "reference": "7c97fbe78ca67e1caff61b29386063e2f29f08d0"
+                "reference": "4754c719d98973dea771226867f2c9ec8ab9b6eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kawanamiyuu/K9u.Enum/zipball/7c97fbe78ca67e1caff61b29386063e2f29f08d0",
-                "reference": "7c97fbe78ca67e1caff61b29386063e2f29f08d0",
+                "url": "https://api.github.com/repos/kawanamiyuu/K9u.Enum/zipball/4754c719d98973dea771226867f2c9ec8ab9b6eb",
+                "reference": "4754c719d98973dea771226867f2c9ec8ab9b6eb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=7.3"
             },
             "require-dev": {
-                "phpmd/phpmd": "^2.8",
+                "phpmd/phpmd": "^2.9",
                 "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "^8.5",
                 "squizlabs/php_codesniffer": "^3.5"
@@ -511,7 +511,7 @@
                 "enum",
                 "enumeration"
             ],
-            "time": "2020-06-09T03:08:50+00:00"
+            "time": "2020-12-25T09:04:38+00:00"
         },
         {
             "name": "k9u/framework",
