@@ -19,6 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @SuppressWarnings("PMD.CouplingBetweenObjects") // FIXME
@@ -29,15 +30,19 @@ class RequestHandler implements RequestHandlerInterface
 
     private StreamFactoryInterface $streamFactory;
 
+    private ValidatorInterface $validator;
+
     private HtbClient $htbClient;
 
     public function __construct(
         ResponseFactoryInterface $responseFactory,
         StreamFactoryInterface $streamFactory,
+        ValidatorInterface $validator,
         HtbClient $htbClient
     ) {
         $this->responseFactory = $responseFactory;
         $this->streamFactory = $streamFactory;
+        $this->validator = $validator;
         $this->htbClient = $htbClient;
     }
 
@@ -49,13 +54,18 @@ class RequestHandler implements RequestHandlerInterface
         $pathParams = $request->getAttribute(PathParams::class);
         assert($pathParams instanceof PathParams);
 
-        $category = isset($request->getQueryParams()['category'])
-            ? Category::valueOf($request->getQueryParams()['category']) // TODO: validation
-            : Category::ALL();
+        $queryParams = QueryParams::fromArray($request->getQueryParams());
 
-        $users = isset($request->getQueryParams()['users'])
-            ? Users::valueOf($request->getQueryParams()['users'])  // TODO: validation
-            : Users::valueOf(100);
+        $violations = $this->validator->validate($queryParams);
+        if (count($violations) > 0) {
+            // FIXME: response error message
+            error_log((string) $violations);
+            return $this->responseFactory->createResponse()->withStatus(400);
+        }
+
+        $category = Category::valueOf($queryParams->category);
+
+        $users = Users::valueOf($queryParams->users);
 
         $bookmarks = $this->htbClient
             ->fetch($category)
