@@ -15,7 +15,7 @@
         "k9u/enum": "^2.0",
         "k9u/framework": "^0.8",
         "laminas/laminas-diactoros": "^2.5",
-        "laminas/laminas-feed": "^2.12",
+        "laminas/laminas-feed": "^2.14",
         "symfony/css-selector": "^5.2",
         "symfony/dom-crawler": "^5.2"
     },
