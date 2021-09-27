@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.3",
         "k9u/enum": "^2.0",
         "k9u/framework": "^0.8",
-        "laminas/laminas-diactoros": "^2.7",
+        "laminas/laminas-diactoros": "^2.8",
         "laminas/laminas-feed": "^2.15",
         "symfony/css-selector": "^5.3",
         "symfony/dom-crawler": "^5.3"
