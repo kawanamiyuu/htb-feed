@@ -16,7 +16,7 @@
         "k9u/framework": "^0.8",
         "laminas/laminas-diactoros": "^2.8",
         "laminas/laminas-feed": "^2.15",
-        "symfony/css-selector": "^5.3",
+        "symfony/css-selector": "^5.4",
         "symfony/dom-crawler": "^5.4"
     },
     "require-dev": {
